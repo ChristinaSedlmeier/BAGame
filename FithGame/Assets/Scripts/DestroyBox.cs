@@ -17,8 +17,10 @@ public class DestroyBox : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            Instantiate(destroyedVersion, transform.position, transform.rotation);
-            Destroy(gameObject);
+            //Instantiate(destroyedVersion, transform.position, transform.rotation);
+            //Destroy(gameObject);
         }
     }
+
+   
 }

@@ -1,59 +1,41 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 
 public class GameManager : MonoBehaviour
+
 {
-    private float secondsCount;
-    bool gameHasEnded = false;
-    bool levelCompleted = false;
-    public float restartDelay = 1f;
-    public Text obstacleScoreText;
-    public Transform player;
-    public Text distanceScoreText;
+    static public int level = 1;
+    public bool difficultyHard = false;
+    static public int score = 0;
 
-    public GameObject completeLevelUI;
 
-    public void CompleteLevel()
+    // Update is called once per frame
+    void Update()
     {
-        levelCompleted = true;
-        completeLevelUI.SetActive(true);
-        
-    }
-
-    void EndGame ()
-    {
-        if(gameHasEnded == false && levelCompleted == false)
-        {
-            Debug.Log("Game over");
-            gameHasEnded = true;
-            //Invoke("Restart", restartDelay);
-
-        }
        
+
     }
 
-    private void Update()
+    public void UpdateScore(int levelScore)
     {
-        distanceScoreText.text = player.position.z.ToString("0");
-        secondsCount += Time.deltaTime;
-        if (secondsCount >= 120)
-        {
-            EndGame();
-            Restart();
-        }
+        score += levelScore;
+            
     }
 
-    void Restart ()
+    public void UpdateLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        level++;
     }
 
-    public void updateScore(int obstacleScore)
+    public int GetLevel()
     {
-        obstacleScoreText.text = obstacleScore.ToString();
-        
+        return level; 
+    }
 
+    public int GetScore()
+    {
+        return score;
     }
 }
- 

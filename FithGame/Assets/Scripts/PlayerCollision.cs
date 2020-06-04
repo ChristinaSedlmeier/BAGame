@@ -6,7 +6,7 @@ public class PlayerCollision : MonoBehaviour
 {
 
   
-    public int obstacleScore = 0;
+    
     public GameObject destroyedVersionType1;
     public GameObject destroyedVersionType2;
     public GameObject destroyedVersionType3;
@@ -19,11 +19,11 @@ public class PlayerCollision : MonoBehaviour
 
         if (collisionInfo.collider.tag == "Coin")
         {
-            obstacleScore += 5;
+            
 
 
             // movement.enabled = false;
-            FindObjectOfType<GameManager>().updateScore(obstacleScore);
+            FindObjectOfType<LevelManager>().updateScore();
             Destroy(collisionInfo.gameObject);
 
         }

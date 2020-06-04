@@ -5,12 +5,12 @@ using UnityEngine;
 public class EndTrigger : MonoBehaviour
 {
 
-    public GameManager gameManager;
+    public LevelManager levelManager;
     void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == "Player")
         {
-            gameManager.CompleteLevel();
+            levelManager.CompleteLevel();
         }
         
     }

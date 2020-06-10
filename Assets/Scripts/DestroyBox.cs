@@ -6,21 +6,38 @@ public class DestroyBox : MonoBehaviour
 {
     public GameObject destroyedVersion;
 
-    void OnMouseDown()
-    {
-        Instantiate(destroyedVersion, transform.position, transform.rotation);
-        Destroy(gameObject);
-    
-    }
+    public int hitCounter = 0;
+    public int hitsNeeded = 0;
 
-    private void Update()
+
+    private void OnTriggerStay(Collider collider)
     {
-        if (Input.GetKeyDown("space"))
+
+        Debug.Log("in Destory Box");
+       
+        if (collider.tag == "Player")
         {
-            //Instantiate(destroyedVersion, transform.position, transform.rotation);
-            //Destroy(gameObject);
+            if (Input.GetKeyDown("h"))
+            {
+                hitCounter++;
+                if (hitCounter >= hitsNeeded)
+                {
+                    Instantiate(destroyedVersion, transform.position, transform.rotation);
+                    Destroy(gameObject);
+                    hitCounter = 0;
+
+                }
+
+            }
         }
+
     }
 
-   
+    private void OnCollisionExit(Collision collision)
+    {
+        hitCounter = 0;
+
+    }
+
+
 }

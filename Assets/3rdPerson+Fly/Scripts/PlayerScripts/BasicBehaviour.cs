@@ -311,7 +311,10 @@ public class BasicBehaviour : MonoBehaviour
 	{
 		if(lastDirection != Vector3.zero)
 		{
+			
 			lastDirection.y = 0;
+			
+			
 			Quaternion targetRotation = Quaternion.LookRotation (lastDirection);
 			Quaternion newRotation = Quaternion.Slerp(rBody.rotation, targetRotation, turnSmoothing);
 			rBody.MoveRotation (newRotation);

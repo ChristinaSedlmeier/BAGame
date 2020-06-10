@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour
         
     }
 
-    void EndGame ()
+    public void EndGame ()
     {
         if(gameHasEnded == false && levelCompleted == false)
         {
@@ -78,9 +78,6 @@ public class LevelManager : MonoBehaviour
             {
                 
                  EndGame();
-                // levelCompleted = true;
-                // gameManager.UpdateLevel();
-                // gameManager.UpdateScore(levelScore);
 
             }
                       

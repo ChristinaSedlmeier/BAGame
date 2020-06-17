@@ -6,20 +6,21 @@ public class DestroyBox : MonoBehaviour
 {
     public GameObject destroyedVersion;
 
+
     public int hitCounter = 0;
     public int hitsNeeded = 0;
 
 
-    private void OnTriggerStay(Collider collider)
+    private void OnTriggerEnter(Collider collider)
     {
 
         Debug.Log("in Destory Box");
        
-        if (collider.tag == "Player")
+        if (collider.tag == "Hand")
         {
-            if (Input.GetKeyDown("h"))
-            {
-                hitCounter++;
+            Debug.Log("Box punched");
+
+            hitCounter++;
                 if (hitCounter >= hitsNeeded)
                 {
                     Instantiate(destroyedVersion, transform.position, transform.rotation);
@@ -28,14 +29,21 @@ public class DestroyBox : MonoBehaviour
 
                 }
 
-            }
+            
         }
 
     }
 
-    private void OnCollisionExit(Collision collision)
+ 
+
+    private void OnTriggerExit(Collider collider)
     {
-        hitCounter = 0;
+        if (collider.tag == "Player")
+        {
+            hitCounter = 0;
+
+
+        }
 
     }
 

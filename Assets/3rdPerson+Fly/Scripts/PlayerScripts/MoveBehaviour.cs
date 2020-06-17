@@ -164,8 +164,10 @@ public class MoveBehaviour : GenericBehaviour
 		if (!(Mathf.Abs(horizontal) > 0.9 || Mathf.Abs(vertical) > 0.9))
 		{
 			
-			//behaviourManager.Repositioning();
 			
+
+			//behaviourManager.Repositioning();
+
 		}
 
 		return targetDirection;

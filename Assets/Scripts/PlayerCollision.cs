@@ -18,8 +18,16 @@ public class PlayerCollision : MonoBehaviour
             Destroy(collisionInfo.gameObject);
 
         }
+        if (collisionInfo.collider.tag == "LeftBall")
+        {
 
-       
+            // movement.enabled = false;
+            FindObjectOfType<PlayerControls>().LeftHitAnimation();
+            Debug.Log("leftHit");
+        }
+
+
+
 
     }
 

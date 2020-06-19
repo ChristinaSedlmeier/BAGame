@@ -7,10 +7,11 @@ public class AddForce : MonoBehaviour
 {
     private float secondsCount;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Rigidbody>().AddForce(transform.forward * 20000);
+        GetComponent<Rigidbody>().AddForce(transform.forward * 30000);
        
 
         // GetComponent<Rigidbody>().useGravity = true;

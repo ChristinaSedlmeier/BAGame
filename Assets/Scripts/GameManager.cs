@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 
 {
     static public int level = 1;
-    public bool difficultyHard = false;
+    static public bool difficultyHard;
     public string difficulty; 
     static public int score = 0;
     static public int extraLifes;
@@ -64,6 +64,11 @@ public class GameManager : MonoBehaviour
     public string GetDifficulty()
     {
         return difficulty;
+    }
+
+    public bool HardDifficulty()
+    {
+        return difficultyHard;
     }
 
     public int GetScore()

@@ -23,6 +23,7 @@ public class PlayerCollision : MonoBehaviour
 
             // movement.enabled = false;
             FindObjectOfType<PlayerControls>().LeftHitAnimation();
+            FindObjectOfType<LevelManager>().TakeDamage(4);
             Debug.Log("leftHit");
         }
 

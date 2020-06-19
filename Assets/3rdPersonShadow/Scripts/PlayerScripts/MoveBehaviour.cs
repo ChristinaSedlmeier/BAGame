@@ -163,11 +163,7 @@ public class MoveBehaviour : GenericBehaviour
 		// If idle, Ignore current camera facing and consider last moving direction.
 		if (!(Mathf.Abs(horizontal) > 0.9 || Mathf.Abs(vertical) > 0.9))
 		{
-			
-			
-
-			//behaviourManager.Repositioning();
-
+			behaviourManager.Repositioning();
 		}
 
 		return targetDirection;

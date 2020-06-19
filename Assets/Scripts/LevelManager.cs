@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
@@ -8,22 +9,29 @@ public class LevelManager : MonoBehaviour
     bool gameHasEnded = false;
     bool levelCompleted = false;
     public float restartDelay = 1f;
-    public Text ScoreText;
-    public Transform player;
+
     public int levelScore = 0;
     static public int extraLifes;
-    public Text extraLifeText;
+    public int maxHealth = 12;
+    public int currentHealth = 0;
 
+    public TextMeshProUGUI ScoreText;
+    public Text extraLifeText;
     public GameObject completeLevelUI;
     public GameObject gameOverUI;
+
+    public HealthBar healthBar;
     
 
     public GameManager gameManager;
+    public Transform player;
 
 
     void Start()
     {
         UpdateExtraLifes();
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
     public void CompleteLevel()
     {
@@ -54,13 +62,10 @@ public class LevelManager : MonoBehaviour
     {
        
         if(player.position.y < 2.5)
-        {
-            
-
+        {           
             //EndGame();
             // CompleteLevel();
-
-            if (gameManager.difficultyHard == false)
+            if (gameManager.HardDifficulty() == false)
             {
                 gameManager.increaseExtraLifes();
                 if(gameManager.GetExtraLifes() >= 0)
@@ -72,13 +77,10 @@ public class LevelManager : MonoBehaviour
                 {
                      EndGame();
                 }
-
             }
             else
-            {
-                
+            {                
                  EndGame();
-
             }
                       
         }
@@ -104,5 +106,24 @@ public class LevelManager : MonoBehaviour
         extraLifeText.text = gameManager.GetExtraLifes().ToString();
 
     }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
+        if (currentHealth <= 0)
+        {
+            if (gameManager.HardDifficulty() == false)
+            {
+                Time.timeScale = 0;
+                Restart();
+            }
+            else { 
+            
+                EndGame();
+            }
+        }
+    }
+        
 }
  

@@ -13,8 +13,11 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+       //
+        Hand = GameObject.FindWithTag("Hand");
+        Debug.Log(Hand);
 
-      
+
     }
 
     // Update is called once per frame
@@ -23,10 +26,17 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKeyDown("h"))
         {
 
-        
-            anim.SetTrigger("isPunching");
+                   anim.SetTrigger("isPunching");
            
             
+        }
+        if (Input.GetKeyDown("p"))
+        {
+            StartPushAnimation();
+        }
+        if(Input.GetKeyUp("p"))
+        {
+            StopPushAnimation();
         }
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
         {
@@ -44,5 +54,15 @@ public class PlayerControls : MonoBehaviour
     public void LeftHitAnimation()
     {
         anim.SetTrigger("leftHit");
+    }
+
+    public void StartPushAnimation()
+    {
+        anim.SetBool("isPushing", true);
+    }
+
+    public void StopPushAnimation()
+    {
+        anim.SetBool("isPushing", false);
     }
 }

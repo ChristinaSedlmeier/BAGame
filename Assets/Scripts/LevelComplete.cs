@@ -4,10 +4,12 @@ using UnityEngine;
 public class LevelComplete : MonoBehaviour
 {
 
-
-    public void LoadNextLevel()
+  
+	public void LoadNextLevel()
     {
-         SceneManager.LoadScene("Menu");
+
+
+        SceneManager.LoadScene("Menu");
 
     }
 }

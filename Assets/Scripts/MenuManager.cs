@@ -8,29 +8,38 @@ public class MenuManager : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public bool easy = true;
+    public bool easy;
     public GameManager gameManager;
 
     public TextMeshProUGUI ScoreText;
     public TextMeshProUGUI LevelText;
 
-    public void LoadEasyGame()
+    public GameObject gameStartUI;
+
+    public void LoadGame()
+    {
+        //gameStartUI.SetActive(true);
+        if (easy)
+        {
+            LoadEasyGame();
+        }
+        if (!easy)
+        {
+            LoadHardGame();
+        }
+    }
+    private void LoadEasyGame()
     {
         gameManager.UpdateDifficulty(false);
         SceneManager.LoadScene("Level" + gameManager.GetLevel() + gameManager.GetDifficulty());
-        //gameManager.UpdateLevel();
-        // UpdateLevelUI();
-
 
     }
 
-    public void LoadHardGame()
-    {
+    private void LoadHardGame()
+    {   
         gameManager.UpdateDifficulty(true);
         SceneManager.LoadScene("Level" + gameManager.GetLevel() + gameManager.GetDifficulty());
-        //gameManager.UpdateLevel();
-        // UpdateLevelUI();
-
+ 
     }
 
     void Start()

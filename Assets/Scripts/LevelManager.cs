@@ -60,30 +60,34 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-       
-        if(player.position.y < 2.5)
-        {           
-            //EndGame();
-            // CompleteLevel();
+
+        if (player.position.y < 2.5)
+        {
             if (gameManager.HardDifficulty() == false)
             {
-                gameManager.increaseExtraLifes();
-                if(gameManager.GetExtraLifes() >= 0)
-                {
-                    Time.timeScale = 0;
-                    Restart();
-                }
-                else
-                {
-                     EndGame();
-                }
+                Time.timeScale = 0;
+                Restart();
+                // gameManager.increaseExtraLifes();
+                // if(gameManager.GetExtraLifes() >= 0)
+                // {
+                //     Time.timeScale = 0;
+                //     Restart();
+                //} 
+                // else
+                //{
+                //   EndGame();
+                //   }
             }
+
             else
-            {                
-                 EndGame();
+            {
+                EndGame();
             }
-                      
         }
+        
+    
+                      
+        
     }
 
     void Restart ()

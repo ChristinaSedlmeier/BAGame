@@ -27,13 +27,31 @@ public class PlayerCollision : MonoBehaviour
             Debug.Log("leftHit");
         }
 
+       
+
 
 
 
     }
 
-   
+    private void OnCollisionStay(Collision collision)
+    {
+        if(collision.collider.tag == "Obstacle" && Input.GetKeyDown("w"))
+        {
+            //FindObjectOfType<PlayerControls>().StartPushAnimation();
+        }
+    }
 
-    
+    private void OnCollisionExit(Collision collision)
+    {
+        if (!(collision.collider.tag == "Obstacle" && Input.GetKeyDown("w")))
+        {
+            //FindObjectOfType<PlayerControls>().StopPushAnimation();
+        }
+    }
+
+
+
+
 
 }

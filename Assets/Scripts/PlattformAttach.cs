@@ -8,11 +8,28 @@ public class PlattformAttach : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Player.transform.parent = transform;
+        //Player.transform.parent = transform;
+        if(other.tag == "Player" )
+        {
+            other.transform.parent = transform;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "WoodenCrateType2")
+        {
+            other.transform.parent = transform;
+        }
+
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Player.transform.parent = null;
+        //Player.transform.parent = null;
+        if (other.tag == "Player" )
+        {
+            other.transform.parent = transform;
+        }
     }
 }

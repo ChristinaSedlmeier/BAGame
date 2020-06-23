@@ -8,6 +8,7 @@ public class PlayerControls : MonoBehaviour
 {
     static Animator anim;
     public GameObject Hand;
+    public bool isMoving;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.GetKeyDown("h"))
         {
                   anim.SetTrigger("isPunching");
@@ -47,6 +49,7 @@ public class PlayerControls : MonoBehaviour
 
         }
         
+
     }
 
     public void LeftHitAnimation()

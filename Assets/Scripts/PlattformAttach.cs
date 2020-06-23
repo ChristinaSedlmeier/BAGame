@@ -30,7 +30,7 @@ public class PlattformAttach : MonoBehaviour
         //Player.transform.parent = null;
         if (other.tag == "Player" )
         {
-            other.transform.parent = transform;
+            other.transform.parent = null;
         }
     }
 }

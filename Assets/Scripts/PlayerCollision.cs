@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
 
-  
-  
+    bool isMoving = false;
+    bool obstacleCollision = false;
+
+
     void OnCollisionEnter(Collision collisionInfo)
     {
        
@@ -26,33 +28,49 @@ public class PlayerCollision : MonoBehaviour
             FindObjectOfType<LevelManager>().TakeDamage(4);
             Debug.Log("leftHit");
         }
+        if (collisionInfo.collider.tag == "Obstacle")
+        {
 
-       
+        }
+
+
+
 
 
 
 
     }
 
+   
+
     private void OnCollisionStay(Collision collision)
     {
-        if(Input.GetKeyDown("p"))
+        
+        if (collision.collider.tag == "Obstacle" && (isMoving == true))
         {
             FindObjectOfType<PlayerControls>().StartPushAnimation();
-            Debug.Log(collision.collider.gameObject.name);
-             collision.collider.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 10000);
+        } else
+        {
+            FindObjectOfType<PlayerControls>().StopPushAnimation();
+        }
+       
+     
+        if (Input.GetKeyDown("p"))
+        {
+            //FindObjectOfType<PlayerControls>().StartPushAnimation();
+            //Debug.Log(collision.collider.gameObject.name);
+             //collision.collider.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 20000);
             
         }
         if (Input.GetKeyUp("p"))
         {
-            FindObjectOfType<PlayerControls>().StopPushAnimation();
+            //FindObjectOfType<PlayerControls>().StopPushAnimation();
          
         }
         if (collision.collider.tag == "Obstacle")
         {
             Debug.Log("bstacle hit");
-            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+           
         }
        
     

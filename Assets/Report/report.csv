@@ -1,4 +1,5 @@
-character name,level,difficulty,damage,score,levelCompleted,time stamp
-SkinnyJohn,1,Hard,0,0,False,26.06.2020 06:40:37
-SkinnyJohn,1,Hard,0,0,False,26.06.2020 06:42:10
-SkinnyJohn,1,,0,0,False,26.06.2020 07:04:54
+character name,level,difficulty,damage,score,levelCompleted,perceivedDamage,time stamp
+SkinnyJohn,1,Hard,0,0,False,1,426
+SkinnyJohn,2,Hard,0,0,False,2,295
+SkinnyJohn,1,Easy,0,10,False,,452
+SkinnyJohn,1,Easy,0,0,False,,870

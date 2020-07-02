@@ -10,7 +10,9 @@ public class EndTrigger : MonoBehaviour
     {
         if (collider.tag == "Player")
         {
-            levelManager.CompleteLevel();
+            levelManager.levelCompleted = true;
+            levelManager.completeLevelUI.SetActive(true);
+           // levelManager.EndGame();
         }
         
     }

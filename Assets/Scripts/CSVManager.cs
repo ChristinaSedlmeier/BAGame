@@ -6,15 +6,17 @@ public static class CSVManager
     private static string reportDirectoryName = "Report";
     private static string reportFileName = "report.csv";
     private static string reportSeperator = ",";
-    private static string[] reportHeaders = new string[6]
+    private static string[] reportHeaders = new string[7]
     {
         "character name",
         "level",
         "difficulty",
         "damage",
         "score",
-        "levelCompleted"
+        "levelCompleted",
+        "perceivedDamage"
     };
+
     private static string timeStampHeader = "time stamp";
 
  //region Interactions 
@@ -95,6 +97,6 @@ public static class CSVManager
    
     static string GetTimeStamp()
     {
-        return System.DateTime.UtcNow.ToString();
+        return System.DateTime.UtcNow.Millisecond.ToString();
     }
 }

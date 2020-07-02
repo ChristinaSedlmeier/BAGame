@@ -52,12 +52,14 @@ public class PlayerCollision : MonoBehaviour
         if (collision.collider.tag == "Obstacle" && (isMoving == true))
         {
             FindObjectOfType<PlayerControls>().StartPushAnimation();
-            //collision.collider.GetComponent<Rigidbody>().mass = 10;
-        } else
+            collision.collider.GetComponent<Rigidbody>().mass = 5;
+
+        } else if(collision.collider.tag == "Obstacle" && (isMoving == false))
         {
             FindObjectOfType<PlayerControls>().StopPushAnimation();
-           // collision.collider.GetComponent<Rigidbody>().mass = 1000;
+            collision.collider.GetComponent<Rigidbody>().mass = 1000;
         }
+        
        
      
         if (Input.GetKeyDown("p"))
@@ -86,11 +88,14 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (!Input.GetKeyDown("w"))
+        if (collision.collider.tag == "Obstacle")
         {
-        //FindObjectOfType<PlayerControls>().StopPushAnimation();
-        //FindObjectOfType<PlayerControls>().StopPushAnimation();
-    }
+            FindObjectOfType<PlayerControls>().StopPushAnimation();
+            collision.collider.GetComponent<Rigidbody>().mass = 1000;
+        }
+        
+        
+    
     }
 
 

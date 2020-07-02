@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 
 
@@ -11,22 +10,26 @@ public class GameManager : MonoBehaviour
     static public string difficulty; 
     static public int score = 0;
     private int currentLevelScore;
-    static public int extraLifes;
+
    // static int currentHealth= 3;
     //static string levelCompleted;
 
 
-    
-    public void UpdateCSVFile(int damage, int levelScore, bool levelCompleted)
+    void Start()
     {
-        CSVManager.AppendToReport(new string[6]
+        
+    }
+    public void UpdateCSVFile(int damage, int levelScore, bool levelCompleted, string perceivedDamage)
+    {
+        CSVManager.AppendToReport(new string[7]
         {
             "SkinnyJohn",
-            level.ToString(),
+            GetLevel().ToString(),
             GetDifficulty(),
             damage.ToString(),
             levelScore.ToString(),
             levelCompleted.ToString(),
+            perceivedDamage,
 
         }) ;
     }
@@ -44,42 +47,27 @@ public class GameManager : MonoBehaviour
         level++;
     }
 
-    public void UpdateDifficulty(bool hard)
+    public void UpdateDifficulty(bool difficult)
     {
-        if(hard == true)
-        {
-            difficultyHard = true;
-            difficulty = "Hard";
-            extraLifes = 0;
-        } else
-        {
-            difficultyHard = false;
-            difficulty = "Easy";
-            extraLifes = 1;
-        }
-    }
-
-    public void increaseExtraLifes()
-    {
-        extraLifes--;
-    }
-
-    public int GetExtraLifes()
-    {
-        return extraLifes;
+        difficultyHard = difficult;
     }
 
     public int GetLevel()
     {
-        return level; 
+        return level;
     }
 
     public string GetDifficulty()
     {
-        return difficulty;
+        if (difficultyHard == true)
+        {
+            return ("Hard");
+        }
+        else return ("Easy");
+       
     }
 
-    public bool HardDifficulty()
+   public bool GetHardDifficulty()
     {
         return difficultyHard;
     }

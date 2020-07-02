@@ -18,17 +18,15 @@ public class MenuManager : MonoBehaviour
 
     public void LoadGame()
     {
-        //gameStartUI.SetActive(true);
         if (easy)
         {
-           
             LoadEasyGame();
         }
         if (!easy)
         {
-            
             LoadHardGame();
         }
+      
     }
     private void LoadEasyGame()
     {

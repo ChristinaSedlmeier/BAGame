@@ -23,6 +23,7 @@ public class DestroyBox : MonoBehaviour
             hitCounter++;
                 if (hitCounter >= hitsNeeded)
                 {
+                    FindObjectOfType<LevelManager>().ActivateHitUI();
                     Instantiate(destroyedVersion, transform.position, transform.rotation);
                     Destroy(gameObject);
                     hitCounter = 0;

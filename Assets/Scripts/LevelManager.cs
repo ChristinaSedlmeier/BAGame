@@ -7,19 +7,23 @@ public class LevelManager : MonoBehaviour
 {
     
     bool gameHasEnded = false;
-    bool levelCompleted = false;
+    //bool levelCompleted = false;
     public float restartDelay = 1f;
 
     public int levelScore = 0;
-    static public int extraLifes;
     public int maxHealth = 3;
     public int currentHealth = 0;
     private int currentDamage = 0;
+    public bool levelCompleted;
 
     public TextMeshProUGUI ScoreText;
-    public Text extraLifeText;
     public GameObject completeLevelUI;
     public GameObject gameOverUI;
+    public GameObject questionnaireUI;
+    public GameObject hurtUI;
+    public GameObject hitUI;
+
+    public string perceivedDamage;
 
     public HealthBar healthBar;
     
@@ -30,42 +34,40 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        UpdateExtraLifes();
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
     }
-    public void CompleteLevel()
-    {
-        levelCompleted = true;
-        completeLevelUI.SetActive(true);     
-        gameManager.UpdateScore(levelScore);
-        
-        gameManager.UpdateCSVFile(currentDamage, levelScore, true);
-
-       
-        gameManager.UpdateLevel();
-
-    }
+  
 
     public void EndGame ()
     {
-        if(gameHasEnded == false && levelCompleted == false)
+        if(levelCompleted == false)
         {
+            //levelCompleted = false;
             
-            gameHasEnded = true;
-            gameOverUI.SetActive(true);
-            gameManager.UpdateScore(levelScore);
-            gameManager.UpdateCSVFile(currentDamage, levelScore, false);
-
-            levelCompleted = false;
-            currentDamage = 0;
-            gameManager.UpdateLevel();
-
-
-            //Invoke("Restart", restartDelay);
+            SaveLevelData(false);
 
         }
+        if(levelCompleted == true)
+        {
+            completeLevelUI.SetActive(true);
+            SaveLevelData(true);
+        }
        
+        gameManager.UpdateLevel();
+        Debug.Log(perceivedDamage);
+        SceneManager.LoadScene("Menu");
+
+    }
+
+    private void SaveLevelData(bool levelCompleted)
+    {
+        gameManager.UpdateScore(levelScore);
+
+        gameManager.UpdateCSVFile(currentDamage, levelScore, levelCompleted, perceivedDamage);
+
+        
+        currentDamage = 0;
     }
 
     private void Update()
@@ -73,25 +75,17 @@ public class LevelManager : MonoBehaviour
 
         if (player.position.y < 2.5)
         {
-            if (gameManager.HardDifficulty() == false)
+            if (gameManager.GetHardDifficulty() == false)
             {
                 Time.timeScale = 0;
-                Restart();
-                // gameManager.increaseExtraLifes();
-                // if(gameManager.GetExtraLifes() >= 0)
-                // {
-                //     Time.timeScale = 0;
-                //     Restart();
-                //} 
-                // else
-                //{
-                //   EndGame();
-                //   }
+                Restart();              
             }
 
             else
             {
-                EndGame();
+                levelCompleted = false;
+                gameOverUI.SetActive(true);
+                //EndGame();
             }
         }
         
@@ -103,6 +97,7 @@ public class LevelManager : MonoBehaviour
     void Restart ()
     {
         Time.timeScale = 1;
+        SaveLevelData(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         
     }
@@ -114,30 +109,48 @@ public class LevelManager : MonoBehaviour
         
     }
 
-    public void UpdateExtraLifes()
-    {
-        extraLifeText.text = gameManager.GetExtraLifes().ToString();
-
-    }
-
     public void TakeDamage(int damage)
     {
+        hurtUI.SetActive(true);
         currentDamage += damage;
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
         if (currentHealth <= 0)
         {
-            if (gameManager.HardDifficulty() == false)
+            if (gameManager.GetHardDifficulty() == false)
             {
                 Time.timeScale = 0;
                 Restart();
             }
-            else { 
-            
-                EndGame();
+            else {
+
+                levelCompleted = false;
+                gameOverUI.SetActive(true);
+                //EndGame();
             }
         }
     }
-        
+
+    public void ActivateHitUI()
+    {
+        hitUI.SetActive(true);
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ContinueGame()
+    {
+        Time.timeScale = 1; 
+    }
+
+    public void LoadQuestionnaire()
+    {
+
+    }
+
+   
 }
  

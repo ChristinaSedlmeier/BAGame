@@ -1,26 +1,29 @@
 using UnityEngine;
 using System.Collections;
 
-public class door : MonoBehaviour {
-	GameObject thedoor;
+public class door : MonoBehaviour
+{
+	public GameObject thedoor;
 	
-	public bool easyDoor;
-	public MenuManager menuManager;
 
-	void OnTriggerEnter ( Collider obj  ){
-		thedoor= GameObject.FindWithTag("SF_Door");
-		thedoor.GetComponent<Animation>().Play("open");
 	
-		menuManager.easy = easyDoor;
+
+	void OnTriggerEnter(Collider obj)
+	{
+		thedoor = GameObject.FindWithTag("SF_Door");
+		thedoor.GetComponent<Animation>().Play("open");
+
+		
 		//menuManager.LoadGame();
-		
-		
+
+
 
 	}
-		
 
-void OnTriggerExit ( Collider obj  ){
-	thedoor= GameObject.FindWithTag("SF_Door");
-	thedoor.GetComponent<Animation>().Play("close");
-}
+
+	void OnTriggerExit(Collider obj)
+	{
+		thedoor = GameObject.FindWithTag("SF_Door");
+		thedoor.GetComponent<Animation>().Play("close");
+	}
 }

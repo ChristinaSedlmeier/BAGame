@@ -1,25 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class QuestionnaireManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public ToggleGroup damageToggle;
+    public GameObject nextPage;
+    public GameObject oldPage;
+
+    public Toggle currentSelection
     {
-        
+        get { return damageToggle.ActiveToggles().FirstOrDefault(); }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SaveToogleAnswer()
     {
-        
+
+        FindObjectOfType<LevelManager>().perceivedDamage = currentSelection.name;
+        Debug.Log(currentSelection.name);
+        FindObjectOfType<LevelManager>().EndGame();
+
+    }
+
+    public void LoadExplanation()
+    {
+        SceneManager.LoadScene("Explanation");
+    }
+
+    public void LoadNextPage()
+    {
+        nextPage.SetActive(true);
+       // oldPage.SetActive(false);
     }
 
 
-    public void LoadGameMenu()
-    {
-        SceneManager.LoadScene("Menu");
-    }
 }

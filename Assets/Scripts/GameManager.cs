@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     static public bool difficultyHard;
     static public string difficulty; 
     static public int score = 0;
+    static public int stars;
     private int currentLevelScore;
 
    // static int currentHealth= 3;
@@ -76,4 +77,21 @@ public class GameManager : MonoBehaviour
     {
         return score;
     }
+
+    public double GetPossibleStars()
+    {
+        return (level-1) * 2.5;
+    }
+
+    public double GetScoreStars()
+    {
+        Debug.Log(score);
+        return score * 0.01;
+    }
+
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+    
 }

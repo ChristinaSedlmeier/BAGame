@@ -19,9 +19,9 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI ScoreText;
     public GameObject completeLevelUI;
     public GameObject gameOverUI;
-    public GameObject questionnaireUI;
     public GameObject hurtUI;
     public GameObject hitUI;
+
 
     public string perceivedDamage;
 
@@ -45,6 +45,7 @@ public class LevelManager : MonoBehaviour
         {
             //levelCompleted = false;
             
+            levelScore = 0;
             SaveLevelData(false);
 
         }
@@ -53,7 +54,8 @@ public class LevelManager : MonoBehaviour
             completeLevelUI.SetActive(true);
             SaveLevelData(true);
         }
-       
+
+        Debug.Log("Level has score: " + levelScore);
         gameManager.UpdateLevel();
         Debug.Log(perceivedDamage);
         SceneManager.LoadScene("Menu");
@@ -83,9 +85,9 @@ public class LevelManager : MonoBehaviour
 
             else
             {
+                
                 levelCompleted = false;
                 gameOverUI.SetActive(true);
-                //EndGame();
             }
         }
         
@@ -102,7 +104,7 @@ public class LevelManager : MonoBehaviour
         
     }
 
-    public void updateScore()
+    public void UpdateScore()
     {
         levelScore += 10;
         ScoreText.text = levelScore.ToString();
@@ -111,6 +113,7 @@ public class LevelManager : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("took damamge");
         hurtUI.SetActive(true);
         currentDamage += damage;
         currentHealth -= damage;

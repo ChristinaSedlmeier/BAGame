@@ -17,7 +17,7 @@ public class PlayerCollision : MonoBehaviour
         {
             
             // movement.enabled = false;
-            FindObjectOfType<LevelManager>().updateScore();
+            FindObjectOfType<LevelManager>().UpdateScore();
             Destroy(collisionInfo.gameObject);
 
         }

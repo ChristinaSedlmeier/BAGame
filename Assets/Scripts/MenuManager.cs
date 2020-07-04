@@ -30,21 +30,21 @@ public class MenuManager : MonoBehaviour
     }
     private void LoadEasyGame()
     {
-        gameManager.UpdateDifficulty(false);
-        SceneManager.LoadScene("Level" + gameManager.GetLevel() + gameManager.GetDifficulty());
+        //FindObjectOfType<GameManager>().UpdateDifficulty(false);
+        SceneManager.LoadScene("Level" + FindObjectOfType<GameManager>().GetLevel() + FindObjectOfType<GameManager>().GetDifficulty());
 
     }
 
     private void LoadHardGame()
-    {   
-        gameManager.UpdateDifficulty(true);
-        SceneManager.LoadScene("Level" + gameManager.GetLevel() + gameManager.GetDifficulty());
+    {
+        //FindObjectOfType<GameManager>().UpdateDifficulty(true);
+        SceneManager.LoadScene("Level" + FindObjectOfType<GameManager>().GetLevel() + FindObjectOfType<GameManager>().GetDifficulty());
  
     }
 
     void Start()
     {
-        ScoreText.text = "Score: " + gameManager.GetScore().ToString();
-        LevelText.text = "Level " + gameManager.GetLevel().ToString();
+        ScoreText.text = "Stars: " + FindObjectOfType<GameManager>().GetScoreStars().ToString() + "/" + FindObjectOfType<GameManager>().GetPossibleStars().ToString();
+        LevelText.text = "Level " + FindObjectOfType<GameManager>().GetLevel().ToString();
     }
 }

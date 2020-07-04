@@ -6,36 +6,23 @@ using System.Linq;
 public class LevelComplete : MonoBehaviour
 {
     public GameObject questionnaireUI;
-    public ToggleGroup damageToggle;
+
 
 
     public void LoadQuestionnaire()
     {
+        Debug.Log("load questionnaire");
 
         questionnaireUI.SetActive(true);
+        gameObject.SetActive(false);
  
     //SceneManager.LoadScene("Menu");
 }
 
     public void LoadNextLevel()
     {
-       
+       // FindObjectOfType<LevelManager>().EndGame();
         SceneManager.LoadScene("Menu");
     }
-    public Toggle currentSelection
-    {
-        get { return damageToggle.ActiveToggles().FirstOrDefault(); }
-    }
-
-    public void SaveToogleAnswer()
-    {
-
-        FindObjectOfType<LevelManager>().perceivedDamage = currentSelection.name;
-        Debug.Log(currentSelection.name);
-        FindObjectOfType<LevelManager>().EndGame();
-
-
-
-
-    }
+   
 }

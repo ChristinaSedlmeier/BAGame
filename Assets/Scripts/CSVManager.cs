@@ -1,21 +1,23 @@
 ﻿using UnityEngine;
 using System.IO;
 
-public static class CSVManager 
+public class CSVManager 
 {
-    private static string reportDirectoryName = "Report";
-    private static string reportFileName = "report.csv";
+    private static string directoryName = "Report";
+    private  static string fileName = "report.csv";
     private static string reportSeperator = ",";
-    private static string[] reportHeaders = new string[7]
+    public static string[] headers = new string[6]
     {
-        "character name",
+        "condition",
         "level",
         "difficulty",
         "damage",
         "score",
-        "levelCompleted",
-        "perceivedDamage"
+        "levelCompleted"
+
     };
+
+
 
     private static string timeStampHeader = "time stamp";
 
@@ -23,7 +25,7 @@ public static class CSVManager
 
     public static void AppendToReport(string[] strings)
     {
-        Debug.Log("Report sucessful");
+        Debug.Log("Report sucessful" + directoryName);
         VerifyDirectory();
         VerifyFile();
         using(StreamWriter sw = File.AppendText(GetFilePath()))
@@ -43,29 +45,30 @@ public static class CSVManager
     }
     public static void CreateReport()
     {
-        VerifyDirectory();
-        
+       // VerifyDirectory();
+
         using (StreamWriter sw = File.CreateText(GetFilePath()))
         {
             string finalString = "";
-            for(int i = 0; i<reportHeaders.Length; i++)
+            for(int i = 0; i<headers.Length; i++)
             {
                 if(finalString != "")
                 {
                     finalString += reportSeperator;
                 }
-                finalString += reportHeaders[i];
+                finalString += headers[i];
             }
             finalString += reportSeperator + timeStampHeader;
             sw.WriteLine(finalString);
         }
     }
+    
 
 
 
 
-//region Operations
-    static void VerifyFile()
+        //region Operations
+        static void VerifyFile()
     {
         string file = GetFilePath();
         if (!File.Exists(file))
@@ -82,17 +85,31 @@ public static class CSVManager
         }
     }
 
-
-
-//region Queries
-    static string GetDirectoryPath()
+    public static void SetFilePath(string filePath, string directoryPath)
     {
-        return Application.dataPath + "/" + reportDirectoryName;
+        fileName = filePath + ".csv";
+        directoryName = directoryPath;
+
+
+
+    }
+    public static void SetHeaders(string[] headerNames)
+    {
+        headers = headerNames;
+
+    }
+
+
+
+    //region Queries
+    private static string GetDirectoryPath()
+    {
+        return Application.dataPath + "/" + directoryName;
     }
 
     static string GetFilePath()
     {
-        return GetDirectoryPath() + "/" + reportFileName;
+        return GetDirectoryPath() + "/" + fileName;
     }
    
     static string GetTimeStamp()

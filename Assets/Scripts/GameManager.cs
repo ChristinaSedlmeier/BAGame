@@ -11,8 +11,17 @@ public class GameManager : MonoBehaviour
     static public int score = 0;
     static public int stars;
     private int currentLevelScore;
+    private static string[] headers = new string[6]
+  {
+        "condition",
+        "level",
+        "difficulty",
+        "damage",
+        "score",
+        "levelCompleted"
+  };
 
-   // static int currentHealth= 3;
+    // static int currentHealth= 3;
     //static string levelCompleted;
 
 
@@ -22,7 +31,10 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateCSVFile(int damage, int levelScore, bool levelCompleted, string perceivedDamage)
     {
-        CSVManager.AppendToReport(new string[7]
+        CSVManager.SetFilePath("levelData", "UserData");
+        CSVManager.SetHeaders(headers);
+
+        CSVManager.AppendToReport(new string[6]
         {
             "SkinnyJohn",
             GetLevel().ToString(),
@@ -30,7 +42,6 @@ public class GameManager : MonoBehaviour
             damage.ToString(),
             levelScore.ToString(),
             levelCompleted.ToString(),
-            perceivedDamage,
 
         }) ;
     }

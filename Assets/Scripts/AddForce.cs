@@ -21,7 +21,7 @@ public class AddForce : MonoBehaviour
     void Update()
     {
         secondsCount += Time.deltaTime;
-        if (secondsCount >= 3)
+        if (secondsCount >= 2)
         {
             Destroy(gameObject);
         }

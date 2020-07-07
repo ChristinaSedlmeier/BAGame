@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 public class QuestionnaireManager : MonoBehaviour
 {
     public ToggleGroup damageToggle;
-    public GameObject nextPage;
-    public GameObject oldPage;
+    public GameObject secondPage;
+    public GameObject thirdPage;
+    public GameObject fourthPage;
 
     public GameObject[] questionGroupArr;
     public QAClass07[] qaArr;
@@ -56,7 +57,7 @@ public class QuestionnaireManager : MonoBehaviour
 
         CSVManager.SetHeaders(postQuestionnaireHeaders);
         CSVManager.AppendToReport(postQuestionnaireAnswers);
-        LoadExplanation();
+        LoadNextCondition();
     }
     QAClass07 ReadQuestionAndAnswer(GameObject questionGroup)
     {
@@ -94,10 +95,16 @@ public class QuestionnaireManager : MonoBehaviour
         SceneManager.LoadScene("Explanation");
     }
 
-    public void LoadNextPage()
+    public void LoadNextPage(GameObject nextPage)
     {
         nextPage.SetActive(true);
        // oldPage.SetActive(false);
+    }
+
+    public void LoadNextCondition()
+    {
+        FindObjectOfType<GameManager>().UpdateCondition();
+        FindObjectOfType<GameManager>().LoadMenu();
     }
 
 

@@ -11,8 +11,7 @@ public class SmathObstacle : MonoBehaviour
       
         if (collider.tag == "Player")
         {
-            FindObjectOfType<LevelManager>().levelCompleted = false;
-            FindObjectOfType<LevelManager>().gameOverUI.SetActive(true);
+            FindObjectOfType<LevelManager>().GameLost();
 
             //FindObjectOfType<LevelManager>().EndGame(false);
         }

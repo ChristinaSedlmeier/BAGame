@@ -6,13 +6,13 @@ public class StartLevelTrigger : MonoBehaviour
 {
     public GameObject startLevelUI;
     public bool hardDoor;
-    public MenuManager menuManager;
+
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-
+            Debug.Log("Trigger for Level Start");
             FindObjectOfType<GameManager>().UpdateDifficulty(hardDoor);
             startLevelUI.SetActive(true);
            

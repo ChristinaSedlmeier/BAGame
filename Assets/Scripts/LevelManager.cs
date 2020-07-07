@@ -57,8 +57,7 @@ public class LevelManager : MonoBehaviour
 
         Debug.Log("Level has score: " + levelScore);
         gameManager.UpdateLevel();
-        Debug.Log(perceivedDamage);
-        SceneManager.LoadScene("Menu");
+       
 
     }
 
@@ -77,23 +76,26 @@ public class LevelManager : MonoBehaviour
 
         if (player.position.y < 2.5)
         {
-            if (gameManager.GetHardDifficulty() == false)
-            {
-                Time.timeScale = 0;
-                Restart();              
-            }
-
-            else
-            {
-                
-                levelCompleted = false;
-                gameOverUI.SetActive(true);
-            }
+            GameLost();
         }
+                              
         
-    
-                      
-        
+    }
+
+    public void GameLost()
+    {
+        if (gameManager.GetHardDifficulty() == false)
+        {
+            Time.timeScale = 0;
+            Restart();
+        }
+
+        else
+        {
+
+            levelCompleted = false;
+            gameOverUI.SetActive(true);
+        }
     }
 
     void Restart ()
@@ -120,17 +122,7 @@ public class LevelManager : MonoBehaviour
         healthBar.SetHealth(currentHealth);
         if (currentHealth <= 0)
         {
-            if (gameManager.GetHardDifficulty() == false)
-            {
-                Time.timeScale = 0;
-                Restart();
-            }
-            else {
-
-                levelCompleted = false;
-                gameOverUI.SetActive(true);
-                //EndGame();
-            }
+            GameLost();
         }
     }
 

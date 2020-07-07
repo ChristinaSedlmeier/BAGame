@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlattformAttach : MonoBehaviour
 {
-    public GameObject Player;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,7 +17,7 @@ public class PlattformAttach : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "WoodenCrateType2" || other.tag == "Coin")
+        if (other.tag == "WoodenCrateType2" || other.tag == "WoodenCrateType3")
         {
             other.transform.parent = transform;
         }
@@ -28,7 +27,7 @@ public class PlattformAttach : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //Player.transform.parent = null;
-        if (other.tag == "Player" )
+        if (other.tag == "Player" || other.tag == "Obstacle")
         {
             other.transform.parent = null;
         }

@@ -14,6 +14,7 @@ public class StartLevel : MonoBehaviour
 	public MenuManager menuManager;
 	public void LevelStart()
 	{
+		Debug.Log("LevelStart");
 		menuManager.LoadGame();
 
 	}

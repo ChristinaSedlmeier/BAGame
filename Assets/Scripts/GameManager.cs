@@ -7,10 +7,14 @@ public class GameManager : MonoBehaviour
 {
     static public int level = 1;
     static public bool difficultyHard;
-    static public string difficulty; 
+    static public string difficulty;
+    static public string[] conditions = new string[3] { "Skinny", "Medium", "Strong" };
+    static public int conditionNum = 0;
     static public int score = 0;
     static public int stars;
     private int currentLevelScore;
+    private AssetBundle myLoadedAssetBundle;
+    private string[] scenePaths;
     private static string[] headers = new string[6]
   {
         "condition",
@@ -25,10 +29,7 @@ public class GameManager : MonoBehaviour
     //static string levelCompleted;
 
 
-    void Start()
-    {
-        
-    }
+
     public void UpdateCSVFile(int damage, int levelScore, bool levelCompleted, string perceivedDamage)
     {
         CSVManager.SetFilePath("levelData", "UserData");
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
 
         CSVManager.AppendToReport(new string[6]
         {
-            "SkinnyJohn",
+            GetCondition(),
             GetLevel().ToString(),
             GetDifficulty(),
             damage.ToString(),
@@ -56,7 +57,18 @@ public class GameManager : MonoBehaviour
 
     public void UpdateLevel()
     {
-        level++;
+
+        if (level >= 3)
+        {
+            Debug.Log("In post questionnaire");
+            SceneManager.LoadScene("PostQuestionnaire");
+        }
+        else
+        {
+            level++;
+            LoadMenu();
+        }
+        
     }
 
     public void UpdateDifficulty(bool difficult)
@@ -102,7 +114,17 @@ public class GameManager : MonoBehaviour
 
     public void LoadMenu()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Menu" + GetCondition());
     }
-    
+
+    public string GetCondition()
+    {
+        return conditions[conditionNum];
+    }
+
+    public void UpdateCondition()
+    {
+        conditionNum++; 
+    }
+
 }

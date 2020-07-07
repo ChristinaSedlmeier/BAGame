@@ -21,8 +21,8 @@ public class LevelComplete : MonoBehaviour
 
     public void LoadNextLevel()
     {
-       // FindObjectOfType<LevelManager>().EndGame();
-        SceneManager.LoadScene("Menu");
+        FindObjectOfType<LevelManager>().EndGame();
+        //SceneManager.LoadScene("Menu" + FindObjectOfType<GameManager>().GetCondition());
     }
    
 }

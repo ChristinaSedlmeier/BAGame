@@ -31,7 +31,7 @@ public class MenuManager : MonoBehaviour
     private void LoadEasyGame()
     {
         //FindObjectOfType<GameManager>().UpdateDifficulty(false);
-        SceneManager.LoadScene("Level" + FindObjectOfType<GameManager>().GetLevel() + FindObjectOfType<GameManager>().GetDifficulty());
+        SceneManager.LoadScene(FindObjectOfType<GameManager>().GetLevel() + FindObjectOfType<GameManager>().GetDifficulty()+ FindObjectOfType<GameManager>().GetCondition());
 
     }
 

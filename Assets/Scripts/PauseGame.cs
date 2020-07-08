@@ -30,6 +30,17 @@ public class PauseGame : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown("h") || Input.GetKeyDown("space"))
+        {
+            pauseUI.SetActive(false);
+            FindObjectOfType<LevelManager>().ContinueGame();
+        }
+    }
+
+
+
     public void DestroyObject(GameObject pauseTrigger)
     {
         Destroy(pauseTrigger);

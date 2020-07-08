@@ -108,8 +108,8 @@ public class LevelManager : MonoBehaviour
 
     public void UpdateScore()
     {
-        levelScore += 10;
-        ScoreText.text = levelScore.ToString();
+        levelScore += 1;
+        ScoreText.text = "x "+ levelScore.ToString();
         
     }
 

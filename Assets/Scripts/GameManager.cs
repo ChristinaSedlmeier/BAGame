@@ -101,9 +101,9 @@ public class GameManager : MonoBehaviour
         return score;
     }
 
-    public double GetPossibleStars()
+    public double GetPossibleScore()
     {
-        return (level-1) * 2.5;
+        return (level-1) * 25;
     }
 
     public double GetScoreStars()
@@ -125,6 +125,27 @@ public class GameManager : MonoBehaviour
     public void UpdateCondition()
     {
         conditionNum++; 
+    }
+
+    public int GetStars()
+    {
+        double scoreAverage = score / (level - 1);
+        if(scoreAverage< 50)
+        {
+            return 0;
+        }else if(scoreAverage>=50 && scoreAverage < 100)
+        {
+            return 1;
+        }
+        else if (scoreAverage >= 100 && scoreAverage < 150)
+        {
+            return 2;
+        }
+        else if (scoreAverage >= 150)
+        {
+            return 3;
+        }
+        return 0;
     }
 
 }

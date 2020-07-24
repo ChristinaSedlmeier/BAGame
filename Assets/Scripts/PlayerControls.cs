@@ -27,7 +27,7 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKeyDown("h"))
         {
                   anim.SetTrigger("isPunching");
-            FindObjectOfType<SoundManager>().Play("Punsh");
+            
 
 
         }
@@ -35,6 +35,7 @@ public class PlayerControls : MonoBehaviour
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
         {
             Hand.SetActive(true);
+            FindObjectOfType<SoundManager>().Play("Punsh");
 
         }
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))

@@ -6,7 +6,7 @@ using TMPro;
 public class LevelManager : MonoBehaviour
 {
     
-    bool gameHasEnded = false;
+
     //bool levelCompleted = false;
     public float restartDelay = 1f;
 
@@ -14,7 +14,9 @@ public class LevelManager : MonoBehaviour
     public int maxHealth = 3;
     public int currentHealth = 0;
     private int currentDamage = 0;
+    static private int lostCoins = 0;
     public bool levelCompleted;
+    private int extraLifes;
 
     public TextMeshProUGUI ScoreText;
     public GameObject completeLevelUI;
@@ -36,6 +38,7 @@ public class LevelManager : MonoBehaviour
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+
         
     }
   
@@ -45,19 +48,24 @@ public class LevelManager : MonoBehaviour
         if(levelCompleted == false)
         {
             //levelCompleted = false;
-
+            Debug.Log(lostCoins + "is Lostcoins in end game");
+            lostCoins += levelScore;
             levelScore = 0;
+            FindObjectOfType<GameManager>().SetZeroExtraLifes();
             SaveLevelData(false);
-            
+
+
 
         }
         if(levelCompleted == true)
         {
             completeLevelUI.SetActive(true);
             SaveLevelData(true);
+
         }
 
         Debug.Log("Level has score: " + levelScore);
+        lostCoins = 0;
         gameManager.UpdateLevel();
        
 
@@ -66,8 +74,8 @@ public class LevelManager : MonoBehaviour
     private void SaveLevelData(bool levelCompleted)
     {
         gameManager.UpdateScore(levelScore);
-
-        gameManager.UpdateCSVFile(currentDamage, levelScore, levelCompleted, perceivedDamage);
+        Debug.Log(lostCoins + "is Lostcoins in save level data");
+        gameManager.UpdateCSVFile(currentDamage, levelScore, levelCompleted, lostCoins);
 
         
         currentDamage = 0;
@@ -76,13 +84,7 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
 
-        if (player.position.y < 2.3)
-        {
-            
-            GameLost();
-            
-
-        }
+        
                               
         
     }
@@ -97,7 +99,7 @@ public class LevelManager : MonoBehaviour
 
         else
         {
-            
+
             levelCompleted = false;
             gameOverUI.SetActive(true);
         }
@@ -105,19 +107,22 @@ public class LevelManager : MonoBehaviour
 
     void Restart ()
     {
-        Time.timeScale = 1;
-        SaveLevelData(false);
+        lostCoins += levelScore;
+        Debug.Log(lostCoins + "is Lostcoins in restart");
         levelScore = 0;
+        //SaveLevelData(false);
         FindObjectOfType<GameManager>().DecreaseExtraLifes();
         Debug.Log(FindObjectOfType<GameManager>().GetExtraLifes() + "is extarLifes");
         if (FindObjectOfType<GameManager>().GetExtraLifes() <= 0)
         {
             
             levelCompleted = false;
+            Time.timeScale = 1;
             gameOverUI.SetActive(true);
         }else
         {
 
+            Time.timeScale = 1;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 

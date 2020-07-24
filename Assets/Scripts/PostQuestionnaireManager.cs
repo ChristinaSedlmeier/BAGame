@@ -27,13 +27,22 @@ public class PostQuestionnaireManager : MonoBehaviour
     public GameObject[] challengeQuestionGroupArr;
     public QAClass07[] challengeQaArr;
 
-    private static string[] challengeHeaders = new string[5];
-    private static string[] challengeAnswers = new string[5];
+    private static string[] challengeHeaders = new string[4];
+    private static string[] challengeAnswers = new string[4];
+
+
+    public GameObject[] samQuestionGroupArr;
+    public QAClass07[] samQaArr;
+
+    private static string[] samHeaders = new string[3];
+    private static string[] samAnswers = new string[3];
+
     private void Start()
     {
         enjoymentQaArr = new QAClass07[enjoymentQuestionGroupArr.Length];
         masteryQaArr = new QAClass07[masteryQuestionGroupArr.Length];
         challengeQaArr = new QAClass07[challengeQuestionGroupArr.Length];
+        samQaArr = new QAClass07[samQuestionGroupArr.Length];
     }
 
     public void SubmitEnjoymentAnswer(GameObject nextPage)
@@ -71,7 +80,9 @@ public class PostQuestionnaireManager : MonoBehaviour
         LoadNextPage(nextPage);
     }
 
-    public void SubmitChallengeAnswer()
+  
+
+    public void SubmitChallengeAnswer(GameObject nextPage)
     {
 
         for (int i = 0; i < challengeQaArr.Length; i++)
@@ -86,8 +97,27 @@ public class PostQuestionnaireManager : MonoBehaviour
 
         CSVManager.SetHeaders(challengeHeaders);
         CSVManager.AppendToReport(challengeAnswers);
-        LoadNextCondition();
+        LoadNextPage(nextPage);
     }
+    public void SubmitSAMAnswer()
+    {
+
+        for (int i = 0; i < samQaArr.Length; i++)
+        {
+            samQaArr[i] = ReadQuestionAndAnswer(samQuestionGroupArr[i]);
+            Debug.Log(samQuestionGroupArr[i].name + " " + samQaArr[i].Answer);
+            samHeaders[i] = samQuestionGroupArr[i].name;
+            samAnswers[i] = samQaArr[i].Answer;
+
+        }
+        CSVManager.SetFilePath("postQuestionnaireSAM", "PostQuestionnaires");
+
+        CSVManager.SetHeaders(samHeaders);
+        CSVManager.AppendToReport(samAnswers);
+        LoadNextCondition();
+
+    }
+
     QAClass07 ReadQuestionAndAnswer(GameObject questionGroup)
     {
         QAClass07 result = new QAClass07();

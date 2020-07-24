@@ -12,7 +12,7 @@ public class StartLevelTrigger : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Debug.Log("Trigger for Level Start");
+
             FindObjectOfType<GameManager>().UpdateDifficulty(hardDoor);
             startLevelUI.SetActive(true);
            

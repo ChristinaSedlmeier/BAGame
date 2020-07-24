@@ -53,30 +53,31 @@ public class MenuManager : MonoBehaviour
     {
         
         Debug.Log("stars: " + FindObjectOfType<GameManager>().GetStars());
-        ScoreText.text = FindObjectOfType<GameManager>().GetScore().ToString() + "/" + FindObjectOfType<GameManager>().GetPossibleScore().ToString();
+        ScoreText.text = "x "+ FindObjectOfType<GameManager>().GetScore().ToString();
+            //+ "/" + FindObjectOfType<GameManager>().GetPossibleScore().ToString();
         LevelText.text = "Level " + FindObjectOfType<GameManager>().GetLevel().ToString();
         if(FindObjectOfType<GameManager>().GetStars() == 1)
         {
-            emptyStars[0].SetActive(false);
-            filledStars[0].SetActive(true);
+           // emptyStars[0].SetActive(false);
+            //filledStars[0].SetActive(true);
 
         }
         if (FindObjectOfType<GameManager>().GetStars() == 2)
         {
             emptyStars[0].SetActive(false);
-            filledStars[0].SetActive(true);
+            //filledStars[0].SetActive(true);
             emptyStars[1].SetActive(false);
-            filledStars[1].SetActive(true);
+           // filledStars[1].SetActive(true);
 
         }
         if (FindObjectOfType<GameManager>().GetStars() == 3)
         {
             emptyStars[0].SetActive(false);
-            filledStars[0].SetActive(true);
+           // filledStars[0].SetActive(true);
             emptyStars[1].SetActive(false);
-            filledStars[1].SetActive(true);
+           // filledStars[1].SetActive(true);
             emptyStars[2].SetActive(false);
-            filledStars[2].SetActive(true);
+           // filledStars[2].SetActive(true);
 
         }
     }

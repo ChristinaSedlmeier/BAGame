@@ -35,12 +35,13 @@ public class PlayerCollision : MonoBehaviour
         {
 
         }
+      
 
     }
 
     private void Update()
     {
-        if (Input.GetKey("w")){
+        if (Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow)){
             isMoving = true;
         } else 
         {
@@ -62,26 +63,6 @@ public class PlayerCollision : MonoBehaviour
             collision.collider.GetComponent<Rigidbody>().mass = 1000;
         }
         
-       
-     
-        if (Input.GetKeyDown("p"))
-        {
-            //FindObjectOfType<PlayerControls>().StartPushAnimation();
-            //Debug.Log(collision.collider.gameObject.name);
-             //collision.collider.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * 20000);
-            
-        }
-        if (Input.GetKeyUp("p"))
-        {
-            //FindObjectOfType<PlayerControls>().StopPushAnimation();
-         
-        }
-        if (collision.collider.tag == "Obstacle")
-        {
-            Debug.Log("bstacle hit");
-           
-        }
-       
     
 
     

@@ -13,14 +13,17 @@ public class GameManager : MonoBehaviour
     static public int score = 0;
     static public int stars = 0;
     static public int extraLifes = 3;
-    private static string[] headers = new string[6]
+    static public string side;
+    private static string[] headers = new string[8]
   {
         "condition",
         "level",
         "difficulty",
         "damage",
         "score",
-        "levelCompleted"
+        "levelCompleted",
+        "lostCoins",
+        "extraLifes",
   };
 
     // static int currentHealth= 3;
@@ -28,12 +31,12 @@ public class GameManager : MonoBehaviour
 
 
 
-    public void UpdateCSVFile(int damage, int levelScore, bool levelCompleted, string perceivedDamage)
+    public void UpdateCSVFile(int damage, int levelScore, bool levelCompleted, int lostCoins)
     {
         CSVManager.SetFilePath((GetCondition() + "_RiskBehaviour"), "LevelData");
         CSVManager.SetHeaders(headers);
 
-        CSVManager.AppendToReport(new string[6]
+        CSVManager.AppendToReport(new string[8]
         {
             GetCondition(),
             GetLevel().ToString(),
@@ -41,8 +44,25 @@ public class GameManager : MonoBehaviour
             damage.ToString(),
             levelScore.ToString(),
             levelCompleted.ToString(),
+            lostCoins.ToString(),
+            GetExtraLifes().ToString(),
 
         }) ;
+    }
+
+    public void UpdateSideCSVFile()
+    {
+        CSVManager.SetFilePath("SideDecision", "LevelData");
+        CSVManager.SetHeaders(new string[3]{ 
+            "condition",
+            "level",
+            "side" 
+        });
+        CSVManager.AppendToReport(new string[3] {
+            GetCondition(),
+            GetLevel().ToString(),
+            GetSide()
+        }); ;
     }
   
     public void UpdateScore(int levelScore)
@@ -57,7 +77,8 @@ public class GameManager : MonoBehaviour
 
         if (level >= 5)
         {
-            Debug.Log("In post questionnaire");
+
+            UpdateSideCSVFile();
             //FindObjectOfType<SoundManager>().Stop();
             SceneManager.LoadScene("PostQuestionnaire");
         }
@@ -129,7 +150,7 @@ public class GameManager : MonoBehaviour
     {
         conditionNum++;
         level = 1;
-        score = 0; 
+        score = 0;
     }
 
     public int GetStars()
@@ -181,7 +202,26 @@ public class GameManager : MonoBehaviour
         }
         
     }
+    public void SetZeroExtraLifes()
+    {
+        extraLifes = 0;
+    }
  
+    public void SetSideDecision(bool left)
+    {
+        if(left == true)
+        {
+            side = "left";
+        } else
+        {
+            side = "right";
+        }
+    }
 
+    private string GetSide()
+    {
+        return side;
+    }
+    
 
 }

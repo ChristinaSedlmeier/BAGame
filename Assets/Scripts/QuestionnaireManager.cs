@@ -29,6 +29,7 @@ public class QuestionnaireManager : MonoBehaviour
 
 
 
+
     private void Start()
     {
         qaArr = new QAClass07[questionGroupArr.Length];
@@ -36,7 +37,7 @@ public class QuestionnaireManager : MonoBehaviour
         for (int i = 0; i < button.Length; i++)
         {
 
-            button[i].interactable = false;
+           // button[i].interactable = false;
         }
 
     }
@@ -126,39 +127,64 @@ public class QuestionnaireManager : MonoBehaviour
     {
         
         int j = 0;
-        int length = qaArr.Length;
-        if(pageCounter== 1)
-        {
-            length = 5;
-        }
+        int k = 0;
+        int length1 = 5;
+        int length2 = qaArr.Length;
+        int length3 = 5;
+        int length4 = bodyEsteemQaArr.Length;
+
+
         if(pageCounter == 2)
         {
-            j = 6;
-            length = qaArr.Length;
+
             buttonCounter = 1;
         }
-        for (int i = j ; i < length; i++)
+        if(pageCounter == 3)
         {
-            qaArr[i] = ReadQuestionAndAnswer(questionGroupArr[i]);
-            if (qaArr[i].Answer != "")
+
+            buttonCounter = 2;
+           
+        }
+        if(pageCounter == 4)
+        {
+
+            buttonCounter = 3;
+           
+        }
+        CheckValidation(length1,j, qaArr, questionGroupArr, button[0]);
+        CheckValidation(length2, 5, qaArr, questionGroupArr, button[1]);
+        CheckValidation(length3, k, bodyEsteemQaArr, bodyEsteemQuestionGroupArr, button[2]);
+        CheckValidation(length4, 5, bodyEsteemQaArr, bodyEsteemQuestionGroupArr, button[3]);
+
+
+
+    }
+
+    void CheckValidation(int length, int j, QAClass07[] qaArray, GameObject[] questionGroupArray, Button button)
+    {
+        int counter = 0;
+        int maxLength = length -j; 
+        for (int i = j; i < length; i++)
+        {
+            qaArray[i] = ReadQuestionAndAnswer(questionGroupArray[i]);
+            if (qaArray[i].Answer != "")
             {
+                counter++;
                 filled = true;
-            } else
-            {
-                filled = false;
-                break;
             }
-            
+            if (counter >= maxLength)
+            {
+                button.interactable = true;
+                pageCounter++;
+            }
+            else
+            {
+                button.interactable = false;
+            }
+
 
         }
-        if(filled == true)
-        {
-            
-            button[buttonCounter].interactable = true;
-            pageCounter++;
-            filled = false;
 
-        }
     }
 
 

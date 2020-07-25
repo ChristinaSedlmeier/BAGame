@@ -117,7 +117,11 @@ public class CSVManager
    
     static string GetTimeStamp()
     {
-        return System.DateTime.UtcNow.Millisecond.ToString();
+        //return System.DateTime.UtcNow.Millisecond.ToString();
+       
+        string timestamp = System.DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        Debug.Log(timestamp);
+        return Time.time.ToString();
     }
 
     static string GetUserid()

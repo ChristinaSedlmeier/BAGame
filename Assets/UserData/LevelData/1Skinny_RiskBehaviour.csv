@@ -7,12 +7,3 @@ ID,condition,level,difficulty,damage,score,levelCompleted,lostCoins,extraLifes,t
 1,Skinny,1,Hard,0,0,False,12,0,211
 1,Skinny,2,Easy,0,5,True,0,3,448
 1,Skinny,1,Easy,0,15,True,2,2,198
-1,Skinny,1,Hard,1,25,True,0,0,78,22414
-1,Skinny,1,Easy,0,6,True,0,3,49,77626
-1,Skinny,1,Easy,0,10,True,0,2,71,62182
-1,Skinny,1,Easy,0,15,True,0,3,59,45401
-1,Skinny,1,Easy,1,10,True,0,3,72,25945
-1,Skinny,1,Easy,0,25,True,0,3,86,35697
-1,Skinny,1,Easy,2,10,True,3,1,98,72904
-1,Skinny,1,Easy,0,5,True,0,3,43,834
-1,Skinny,1,Easy,0,7,True,6,2,75,41666

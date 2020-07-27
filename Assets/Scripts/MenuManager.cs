@@ -64,19 +64,19 @@ public class MenuManager : MonoBehaviour
         }
         if (FindObjectOfType<GameManager>().GetStars() == 2)
         {
-            //emptyStars[0].SetActive(false);
+            emptyStars[0].SetActive(false);
             //filledStars[0].SetActive(true);
-            //emptyStars[1].SetActive(false);
+            emptyStars[1].SetActive(false);
            // filledStars[1].SetActive(true);
 
         }
         if (FindObjectOfType<GameManager>().GetStars() == 3)
         {
-            //emptyStars[0].SetActive(false);
+            emptyStars[0].SetActive(false);
            // filledStars[0].SetActive(true);
-            //emptyStars[1].SetActive(false);
+            emptyStars[1].SetActive(false);
            // filledStars[1].SetActive(true);
-            //emptyStars[2].SetActive(false);
+            emptyStars[2].SetActive(false);
            // filledStars[2].SetActive(true);
 
         }

@@ -1,9 +1,7 @@
 ID,condition,level,difficulty,damage,score,levelCompleted,lostCoins,extraLifes,time stamp
-1,Skinny,1,Easy,0,10,True,0,3,331
-1,Skinny,2,Easy,0,6,True,0,3,943
-1,Skinny,3,Hard,1,0,False,11,0,263
-1,Skinny,4,Hard,0,0,False,4,0,820
-1,Skinny,1,Easy,0,0,False,4,0,567
-1,Skinny,1,Hard,0,0,False,12,0,211
-1,Skinny,2,Easy,0,5,True,0,3,448
-1,Skinny,1,Easy,0,15,True,2,2,198
+1,Skinny,1,Easy,1,25,True,0,3,2020-07-29 09:54:15.368
+1,Skinny,1,Easy,1,10,True,0,3,2020-07-29 10:04:31.711
+1,Skinny,1,Easy,0,24,True,0,3,2020-07-29 10:07:07.913
+1,Skinny,1,Easy,0,24,True,0,3,2020-07-29 10:09:09.067
+1,Skinny,1,Easy,0,9,True,0,3,2020-07-29 10:33:27.787
+1,Skinny,1,Easy,0,22,True,0,3,2020-07-29 10:41:19.480

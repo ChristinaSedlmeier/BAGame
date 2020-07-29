@@ -1,10 +1,17 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
-
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System;
+using Random = System.Random;
 
 public class GameManager : MonoBehaviour
 
 {
+    private static Random rng = new Random();
+    private static List<int> round = new List<int>(Enumerable.Range(2, 5));
+    static public int roundCounter = 1;
     static public int level = 1;
     static public bool difficultyHard;
     static public string difficulty;
@@ -31,6 +38,13 @@ public class GameManager : MonoBehaviour
 
 
 
+
+    private void Start()
+    {
+       
+        
+    }
+
     public void UpdateCSVFile(int damage, int levelScore, bool levelCompleted, int lostCoins)
     {
         CSVManager.SetFilePath((GetCondition() + "_RiskBehaviour"), "LevelData");
@@ -52,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateSideCSVFile()
     {
-        CSVManager.SetFilePath("SideDecision", "LevelData");
+        CSVManager.SetFilePath("SideDecision", "LevelData/SideDecision");
         CSVManager.SetHeaders(new string[3]{ 
             "condition",
             "level",
@@ -75,7 +89,7 @@ public class GameManager : MonoBehaviour
     public void UpdateLevel()
     {
 
-        if (level >= 5)
+        if (roundCounter >= 6)
         {
 
             UpdateSideCSVFile();
@@ -85,6 +99,7 @@ public class GameManager : MonoBehaviour
         else
         {
             level++;
+            roundCounter++;
             LoadMenu();
         }
         
@@ -95,9 +110,30 @@ public class GameManager : MonoBehaviour
         difficultyHard = difficult;
     }
 
+    public void ShuffleRounds()
+    {
+        round.Shuffle();
+        Debug.Log(roundCounter.ToString() + "is rounds");
+        Debug.Log(round[0] + "+" + round[1] + "+" + round[2] + "+" + round[3]);
+    }
+
     public int GetLevel()
     {
-        return level;
+        if(roundCounter == 1)
+        {
+            
+           
+            return 1;
+        }
+        else
+        {
+            return round[roundCounter-2];
+        }
+
+    }
+    public int GetRound()
+    {
+        return roundCounter;
     }
 
     public string GetDifficulty()
@@ -122,7 +158,7 @@ public class GameManager : MonoBehaviour
 
     public double GetPossibleScore()
     {
-        return (level-1) * 25;
+        return (roundCounter-1) * 25;
     }
 
     public double GetScoreStars()
@@ -133,7 +169,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadMenu()
     {
-        SceneManager.LoadScene("Menu" + GetCondition());
+        SceneManager.LoadScene("Menu");
     }
 
     public string GetCondition()
@@ -150,36 +186,12 @@ public class GameManager : MonoBehaviour
     {
         conditionNum++;
         level = 1;
+        roundCounter = 1;
+        round.Shuffle();
         score = 0;
     }
 
-    public int GetStars()
-    {
-        int stars = 0;
-        double scoreAverage = 0;
-        if (score != 0)
-        {
-            scoreAverage = score / (level - 1);
-        }
-        
-        if(scoreAverage< 5)
-        {
-            stars =  0;
-        }else if(scoreAverage>=5 && scoreAverage < 10)
-        {
-            stars =  1;
-        }
-        else if (scoreAverage >= 10 && scoreAverage < 15)
-        {
-            stars = 2;
-        }
-        else if (scoreAverage >= 15)
-        {
-            stars = 3;
-        }
-        Debug.Log(stars + "stars in Game manager");
-        return stars;
-    }
+
 
     public int GetExtraLifes()
     {
@@ -222,6 +234,30 @@ public class GameManager : MonoBehaviour
     {
         return side;
     }
+
+    public void ShuffleList()
+    {
+        round.Shuffle();
+    }
     
 
+}
+
+public static class IListExtensions
+{
+    /// <summary>
+    /// Shuffles the element order of the specified list.
+    /// </summary>
+    public static void Shuffle<T>(this IList<T> ts)
+    {
+        var count = ts.Count;
+        var last = count - 1;
+        for (var i = 0; i < last; ++i)
+        {
+            var r = UnityEngine.Random.Range(i, count);
+            var tmp = ts[i];
+            ts[i] = ts[r];
+            ts[r] = tmp;
+        }
+    }
 }

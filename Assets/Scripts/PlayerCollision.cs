@@ -26,15 +26,14 @@ public class PlayerCollision : MonoBehaviour
         {
 
             // movement.enabled = false;
-            FindObjectOfType<PlayerControls>().LeftHitAnimation();
+            // FindObjectOfType<PlayerControls>().LeftHitAnimation();
+            gameObject.GetComponent<Animator>().SetTrigger("leftHit");
+            FindObjectOfType<SoundManager>().Play("Hurt");
             FindObjectOfType<LevelManager>().TakeDamage(1);
-            FindObjectOfType<SoundManager>().Play("Hit");
+
 
         }
-        if (collisionInfo.collider.tag == "Obstacle")
-        {
 
-        }
       
 
     }
@@ -54,12 +53,14 @@ public class PlayerCollision : MonoBehaviour
         
         if (collision.collider.tag == "Obstacle" && (isMoving == true))
         {
-            FindObjectOfType<PlayerControls>().StartPushAnimation();
+            // FindObjectOfType<PlayerControls>().StartPushAnimation();
+            gameObject.GetComponent<Animator>().SetBool("isPushing", true);
             collision.collider.GetComponent<Rigidbody>().mass = 5;
 
         } else if(collision.collider.tag == "Obstacle" && (isMoving == false))
         {
-            FindObjectOfType<PlayerControls>().StopPushAnimation();
+            //FindObjectOfType<PlayerControls>().StopPushAnimation();
+            gameObject.GetComponent<Animator>().SetBool("isPushing", false);
             collision.collider.GetComponent<Rigidbody>().mass = 1000;
         }
         
@@ -73,7 +74,8 @@ public class PlayerCollision : MonoBehaviour
     {
         if (collision.collider.tag == "Obstacle")
         {
-            FindObjectOfType<PlayerControls>().StopPushAnimation();
+            // FindObjectOfType<PlayerControls>().StopPushAnimation();
+            gameObject.GetComponent<Animator>().SetBool("isPushing", false);
             collision.collider.GetComponent<Rigidbody>().mass = 1000;
         }
         

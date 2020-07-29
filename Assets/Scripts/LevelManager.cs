@@ -1,13 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
     
 
-    //bool levelCompleted = false;
     public float restartDelay = 1f;
 
     public int levelScore = 0;
@@ -15,7 +12,7 @@ public class LevelManager : MonoBehaviour
     public int currentHealth = 0;
     private int currentDamage = 0;
     static private int lostCoins = 0;
-    public bool levelCompleted;
+    public bool levelCompleted = false;
     private int extraLifes;
 
     public TextMeshProUGUI ScoreText;
@@ -23,6 +20,12 @@ public class LevelManager : MonoBehaviour
     public GameObject gameOverUI;
     public GameObject hurtUI;
     public GameObject hitUI;
+    public GameObject RestartUI;
+
+
+    public GameObject maleSkinny;
+    public GameObject maleMedium;
+    public GameObject maleStong;
 
 
     public string perceivedDamage;
@@ -31,15 +34,33 @@ public class LevelManager : MonoBehaviour
     
 
     public GameManager gameManager;
+
     public Transform player;
+
 
 
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
-
-        
+        Cursor.visible = false;
+        if(FindObjectOfType<GameManager>().GetCondition() == "Skinny")
+        {
+            maleSkinny.SetActive(true);
+            maleMedium.SetActive(false);
+            maleStong.SetActive(false);
+        }else if (FindObjectOfType<GameManager>().GetCondition() == "Medium")
+        {
+            maleSkinny.SetActive(false);
+            maleMedium.SetActive(true);
+            maleStong.SetActive(false);
+        }
+        if (FindObjectOfType<GameManager>().GetCondition() == "Strong")
+        {
+            maleSkinny.SetActive(false);
+            maleMedium.SetActive(false);
+            maleStong.SetActive(true);
+        }
     }
   
 
@@ -47,8 +68,7 @@ public class LevelManager : MonoBehaviour
     {
         if(levelCompleted == false)
         {
-            //levelCompleted = false;
-            Debug.Log(lostCoins + "is Lostcoins in end game");
+
             lostCoins += levelScore;
             levelScore = 0;
             FindObjectOfType<GameManager>().SetZeroExtraLifes();
@@ -59,7 +79,8 @@ public class LevelManager : MonoBehaviour
         }
         if(levelCompleted == true)
         {
-            completeLevelUI.SetActive(true);
+            // completeLevelUI.SetActive(true);
+            Debug.Log("Level Completed");
             SaveLevelData(true);
 
         }
@@ -107,23 +128,22 @@ public class LevelManager : MonoBehaviour
 
     void Restart ()
     {
-        lostCoins += levelScore;
-        Debug.Log(lostCoins + "is Lostcoins in restart");
+        lostCoins = levelScore;
         levelScore = 0;
-        //SaveLevelData(false);
+        levelCompleted = false;
         FindObjectOfType<GameManager>().DecreaseExtraLifes();
         Debug.Log(FindObjectOfType<GameManager>().GetExtraLifes() + "is extarLifes");
         if (FindObjectOfType<GameManager>().GetExtraLifes() <= 0)
         {
             
-            levelCompleted = false;
             Time.timeScale = 1;
             gameOverUI.SetActive(true);
         }else
         {
 
-            Time.timeScale = 1;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SaveLevelData(false);
+            RestartUI.SetActive(true);
+          
         }
 
         
@@ -138,7 +158,6 @@ public class LevelManager : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("took damamge");
         hurtUI.SetActive(true);
         currentDamage += damage;
         currentHealth -= damage;
@@ -164,7 +183,21 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1; 
     }
 
+    public int GetScore()
+    {
+        Debug.Log(levelScore);
+        return levelScore;
+    }
 
-   
+    private void FixedUpdate()
+    {
+        if (maleStong.transform.position.y <= 0 || maleMedium.transform.position.y <= 0 || maleSkinny.transform.position.y <= 0)
+        {
+            levelCompleted = false;
+            gameOverUI.SetActive(true);
+        }
+    }
+
+
 }
  

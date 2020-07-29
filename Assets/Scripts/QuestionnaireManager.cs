@@ -29,16 +29,20 @@ public class QuestionnaireManager : MonoBehaviour
 
 
 
+
     private void Start()
     {
+        Cursor.visible = true;
         qaArr = new QAClass07[questionGroupArr.Length];
         bodyEsteemQaArr = new QAClass07[bodyEsteemQuestionGroupArr.Length];
         for (int i = 0; i < button.Length; i++)
         {
 
-            button[i].interactable = false;
+           // button[i].interactable = false;
         }
 
+
+        
     }
 
     public void SubmitDemograficAnswer(GameObject nextPage)
@@ -47,12 +51,11 @@ public class QuestionnaireManager : MonoBehaviour
         for(int i = 0; i<qaArr.Length; i++)
         {
             qaArr[i] = ReadQuestionAndAnswer(questionGroupArr[i]);
-            Debug.Log(qaArr[i].Question + " " + qaArr[i].Answer);
             demograficHeaders[i] = questionGroupArr[i].name;
             demograficAnswers[i] = qaArr[i].Answer;
            
         }
-        CSVManager.SetFilePath("demograficData", "UserData");
+        CSVManager.SetFilePath(GetCondition() + "_demograficData", "UserData/Demografics");
 
         CSVManager.SetHeaders(demograficHeaders);
         CSVManager.AppendToReport(demograficAnswers);
@@ -66,12 +69,11 @@ public class QuestionnaireManager : MonoBehaviour
         for (int i = 0; i < bodyEsteemQaArr.Length; i++)
         {
             bodyEsteemQaArr[i] = ReadQuestionAndAnswer(bodyEsteemQuestionGroupArr[i]);
-            Debug.Log(bodyEsteemQaArr[i].Question + " " + bodyEsteemQaArr[i].Answer);
-            bodyEsteemHeaders[i] = bodyEsteemQaArr[i].Question;
+            bodyEsteemHeaders[i] = bodyEsteemQuestionGroupArr[i].name;
             bodyEsteemAnswers[i] = bodyEsteemQaArr[i].Answer;
 
         }
-        CSVManager.SetFilePath("bodyEsteemData", "UserData");
+        CSVManager.SetFilePath(GetCondition()+"_bodyEsteemData", "UserData/BodyEsteem");
 
         CSVManager.SetHeaders(bodyEsteemHeaders);
         CSVManager.AppendToReport(bodyEsteemAnswers);
@@ -122,46 +124,75 @@ public class QuestionnaireManager : MonoBehaviour
     }
 
 
+
     private void Update()
     {
         
         int j = 0;
-        int length = qaArr.Length;
-        if(pageCounter== 1)
-        {
-            length = 5;
-        }
+        int k = 0;
+        int length1 = 5;
+        int length2 = qaArr.Length;
+        int length3 = 5;
+        int length4 = bodyEsteemQaArr.Length;
+
+
         if(pageCounter == 2)
         {
-            j = 6;
-            length = qaArr.Length;
+
             buttonCounter = 1;
         }
-        for (int i = j ; i < length; i++)
+        if(pageCounter == 3)
         {
-            qaArr[i] = ReadQuestionAndAnswer(questionGroupArr[i]);
-            if (qaArr[i].Answer != "")
-            {
-                filled = true;
-            } else
-            {
-                filled = false;
-                break;
-            }
-            
 
+            buttonCounter = 2;
+           
         }
-        if(filled == true)
+        if(pageCounter == 4)
         {
-            
-            button[buttonCounter].interactable = true;
-            pageCounter++;
-            filled = false;
 
+            buttonCounter = 3;
+           
         }
+        CheckValidation(length1,j, qaArr, questionGroupArr, button[0]);
+        CheckValidation(length2, 5, qaArr, questionGroupArr, button[1]);
+        CheckValidation(length3, k, bodyEsteemQaArr, bodyEsteemQuestionGroupArr, button[2]);
+        CheckValidation(length4, 5, bodyEsteemQaArr, bodyEsteemQuestionGroupArr, button[3]);
+
+
+
     }
 
+    void CheckValidation(int length, int j, QAClass07[] qaArray, GameObject[] questionGroupArray, Button button)
+    {
+        int counter = 0;
+        int maxLength = length -j; 
+        for (int i = j; i < length; i++)
+        {
+            qaArray[i] = ReadQuestionAndAnswer(questionGroupArray[i]);
+            if (qaArray[i].Answer != "")
+            {
+                counter++;
+                filled = true;
+            }
+            if (counter >= maxLength)
+            {
+                button.interactable = true;
+                pageCounter++;
+            }
+            else
+            {
+                button.interactable = false;
+            }
 
+
+        }
+
+    }
+
+    private string GetCondition()
+    {
+        return FindObjectOfType<GameManager>().GetCondition();
+    }
 }
 [System.Serializable]
 public class QAClass07

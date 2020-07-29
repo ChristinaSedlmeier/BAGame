@@ -1,14 +1,26 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 public class Score : MonoBehaviour
 {
-    public Transform player;
-    public Text scoreText;
 
-    // Update is called once per frame
-    void Update()
+    public TextMeshProUGUI scoreText;
+    public GameObject nextCanvas;
+
+    private void Start()
     {
-        scoreText.text = player.position.z.ToString("0");
+        
+        
+    }
 
+    public void Destroy()
+    {
+       nextCanvas.SetActive(true);
+        Destroy(gameObject);
+    }
+
+    public void PlayWin()
+    {
+       // FindObjectOfType<SoundManager>().Play("Win");
+        scoreText.text = "You collected " + FindObjectOfType<GameManager>().GetScore().ToString() + " Coins";
     }
 }

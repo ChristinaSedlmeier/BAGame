@@ -45,6 +45,29 @@ public class CSVManager
             sw.WriteLine(finalString);
         }
     }
+
+    public static void AppendToReportCondition(string[] strings)
+    {
+       
+        Debug.Log("Report sucessful" + directoryName);
+        VerifyDirectory();
+        VerifyFile();
+        using (StreamWriter sw = File.AppendText(GetFilePath()))
+        {
+            string finalString = "";
+            finalString += GetUserid()+reportSeperator + GameManager.conditions[GameManager.conditionNum];
+            for (int i = 0; i < strings.Length; i++)
+            {
+                if (finalString != "")
+                {
+                    finalString += reportSeperator;
+                }
+                finalString += strings[i];
+            }
+            finalString += reportSeperator + GetTimeStamp();
+            sw.WriteLine(finalString);
+        }
+    }
     public static void CreateReport()
     {
        // VerifyDirectory();
@@ -102,6 +125,18 @@ public class CSVManager
 
     }
 
+    public static void SetConditionHeader(string[] headerNames)
+    {
+        
+        string[] headersN = new string[headerNames.Length + 1];
+        headersN[0] = "condition";
+        for (int i = 1; i <= headerNames.Length; i++)
+        {
+            headersN[i] = headerNames[i-1];
+        }
+        headers = headersN;
+    }
+
 
 
     //region Queries
@@ -117,7 +152,11 @@ public class CSVManager
    
     static string GetTimeStamp()
     {
-        return System.DateTime.UtcNow.Millisecond.ToString();
+        //return System.DateTime.UtcNow.Millisecond.ToString();
+       
+        string timestamp = System.DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        Debug.Log(timestamp);
+        return timestamp;
     }
 
     static string GetUserid()

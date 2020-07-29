@@ -36,8 +36,9 @@ public class AddForce : MonoBehaviour
             //Destroy(gameObject);
             
         }
-        if(collision.collider.tag == "Wall")
+        if(collision.collider.tag == "Player")
         {
+            Destroy(gameObject);
            // GetComponent<Rigidbody>().AddForce(-transform.up * 30000);
         }
         

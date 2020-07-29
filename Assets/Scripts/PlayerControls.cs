@@ -7,59 +7,78 @@ public class PlayerControls : MonoBehaviour
     
 {
     static Animator anim;
+
     public GameObject Hand;
+
     public bool isMoving;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
-       //Hand = GameObject.FindWithTag("Hand");
-        Debug.Log(Hand);
+        //Hand = GameObject.FindWithTag("Hand");
+        Debug.Log(anim);
+        if (FindObjectOfType<GameManager>().GetCondition() == "Skinny")
+        {
+            // Hand = HandSkinny;
+        }
+        else if (FindObjectOfType<GameManager>().GetCondition() == "Medium")
+        {
+            //Hand = HandMedium;
+        }
+        if (FindObjectOfType<GameManager>().GetCondition() == "Strong")
+        {
+            // Hand = HandStong;
 
 
+        }
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if (Input.GetKeyDown("h"))
+
+        if (Input.GetMouseButtonDown(0))
         {
-                  anim.SetTrigger("isPunching");
+            gameObject.GetComponent<Animator>().SetTrigger("isPunching");
+            anim.SetTrigger("isPunching");
+            Debug.Log("is punshing ");
             
-
-
         }
-       
+
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
         {
+            Debug.Log("is punshing animation");
+            GameObject.FindWithTag("Hand").SetActive(true);
             Hand.SetActive(true);
-            FindObjectOfType<SoundManager>().Play("Punsh");
+
 
         }
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
+            GameObject.FindWithTag("Hand").SetActive(false);
             Hand.SetActive(false);
 
         }
+       
         
 
     }
 
     public void LeftHitAnimation()
     {
-        anim.SetTrigger("leftHit");
+        gameObject.GetComponent<Animator>().SetTrigger("leftHit");
         FindObjectOfType<SoundManager>().Play("Hit");
     }
 
     public void StartPushAnimation()
     {
-        anim.SetBool("isPushing", true);
+        gameObject.GetComponent<Animator>().SetBool("isPushing", true);
     }
 
     public void StopPushAnimation()
     {
-        anim.SetBool("isPushing", false);
+        gameObject.GetComponent<Animator>().SetBool("isPushing", false);
     }
 }

@@ -31,18 +31,94 @@ public class PostQuestionnaireManager : MonoBehaviour
     private static string[] challengeAnswers = new string[4];
 
 
-    public GameObject[] samQuestionGroupArr;
-    public QAClass07[] samQaArr;
+    public GameObject[] similarityQuestionGroupArr;
+    public QAClass07[] similarityQaArr;
 
-    private static string[] samHeaders = new string[3];
-    private static string[] samAnswers = new string[3];
+    private static string[] similarityHeaders = new string[6];
+    private static string[] similarityAnswers = new string[6];
+
+    public GameObject[] presenceQuestionGroupArr;
+    public QAClass07[] presenceQaArr;
+
+    private static string[] presenceHeaders = new string[6];
+    private static string[] presenceAnswers = new string[6];
+
+    public GameObject[] identificationQuestionGroupArr;
+    public QAClass07[] identificationQaArr;
+
+    private static string[] identificationHeaders = new string[5];
+    private static string[] identificationAnswers = new string[5];
+
+    public Button enjoymentButton;
+    public Button masteryButton;
+    public Button challengeButton;
+    public Button similarityButton;
+    public Button presenceButton;
+    public Button identificationButton;
+
+
 
     private void Start()
     {
+        Cursor.visible = true;
         enjoymentQaArr = new QAClass07[enjoymentQuestionGroupArr.Length];
         masteryQaArr = new QAClass07[masteryQuestionGroupArr.Length];
         challengeQaArr = new QAClass07[challengeQuestionGroupArr.Length];
-        samQaArr = new QAClass07[samQuestionGroupArr.Length];
+        similarityQaArr = new QAClass07[similarityQuestionGroupArr.Length];
+        presenceQaArr = new QAClass07[presenceQuestionGroupArr.Length];
+        identificationQaArr = new QAClass07[identificationQuestionGroupArr.Length];
+    }
+
+    public void SubmitIdentificationAnswer(GameObject nextPage)
+    {
+
+        for (int i = 0; i < identificationQaArr.Length; i++)
+        {
+            identificationQaArr[i] = ReadQuestionAndAnswer(identificationQuestionGroupArr[i]);
+            identificationHeaders[i] = identificationQuestionGroupArr[i].name;
+            identificationAnswers[i] = identificationQaArr[i].Answer;
+
+        }
+        CSVManager.SetFilePath(GetCondition()+"_wishfulIdentification", "PostQuestionnaires/UserIdentification");
+
+        CSVManager.SetConditionHeader(identificationHeaders);
+        CSVManager.AppendToReportCondition(identificationAnswers);
+        LoadNextPage(nextPage);
+
+    }
+
+    public void SubmitPresenceAnswer(GameObject nextPage)
+    {
+
+        for (int i = 0; i < presenceQaArr.Length; i++)
+        {
+            presenceQaArr[i] = ReadQuestionAndAnswer(presenceQuestionGroupArr[i]);
+            Debug.Log(presenceQaArr[i].Question + " " + presenceQaArr[i].Answer);
+            presenceHeaders[i] = presenceQuestionGroupArr[i].name;
+            presenceAnswers[i] = presenceQaArr[i].Answer;
+
+        }
+        CSVManager.SetFilePath(GetCondition()+"_embodiedPresence", "PostQuestionnaires/UserIdentification");
+
+        CSVManager.SetConditionHeader(presenceHeaders);
+        CSVManager.AppendToReportCondition(presenceAnswers);
+        LoadNextPage(nextPage);
+    }
+    public void SubmitSimilarityAnswer(GameObject nextPage)
+    {
+
+        for (int i = 0; i < similarityQaArr.Length; i++)
+        {
+            similarityQaArr[i] = ReadQuestionAndAnswer(similarityQuestionGroupArr[i]);
+            similarityHeaders[i] = similarityQuestionGroupArr[i].name;
+            similarityAnswers[i] = similarityQaArr[i].Answer;
+
+        }
+        CSVManager.SetFilePath(GetCondition()+"_similarityIdentification", "PostQuestionnaires/UserIdentification");
+
+        CSVManager.SetConditionHeader(similarityHeaders);
+        CSVManager.AppendToReportCondition(similarityAnswers);
+        LoadNextPage(nextPage);
     }
 
     public void SubmitEnjoymentAnswer(GameObject nextPage)
@@ -51,15 +127,14 @@ public class PostQuestionnaireManager : MonoBehaviour
         for (int i = 0; i < enjoymentQaArr.Length; i++)
         {
             enjoymentQaArr[i] = ReadQuestionAndAnswer(enjoymentQuestionGroupArr[i]);
-            Debug.Log(enjoymentQaArr[i].Question + " " + enjoymentQaArr[i].Answer);
-            enjoymentHeaders[i] = enjoymentQaArr[i].Question;
+            enjoymentHeaders[i] = enjoymentQuestionGroupArr[i].name;
             enjoymentAnswers[i] = enjoymentQaArr[i].Answer;
 
         }
-        CSVManager.SetFilePath("postQuestionnaireEnjoyment", "PostQuestionnaires");
+        CSVManager.SetFilePath(GetCondition()+"_enjoyment", "PostQuestionnaires/PIX");
 
-        CSVManager.SetHeaders(enjoymentHeaders);
-        CSVManager.AppendToReport(enjoymentAnswers);
+        CSVManager.SetConditionHeader(enjoymentHeaders);
+        CSVManager.AppendToReportCondition(enjoymentAnswers);
         LoadNextPage(nextPage);
     }
     public void SubmitMasteryAnswer(GameObject nextPage)
@@ -68,55 +143,36 @@ public class PostQuestionnaireManager : MonoBehaviour
         for (int i = 0; i < masteryQaArr.Length; i++)
         {
             masteryQaArr[i] = ReadQuestionAndAnswer(masteryQuestionGroupArr[i]);
-            Debug.Log(masteryQaArr[i].Question + " " + masteryQaArr[i].Answer);
-            masteryHeaders[i] = masteryQaArr[i].Question;
+            masteryHeaders[i] = masteryQuestionGroupArr[i].name;
             masteryAnswers[i] = masteryQaArr[i].Answer;
 
         }
-        CSVManager.SetFilePath("postQuestionnaireMastery", "PostQuestionnaires");
+        CSVManager.SetFilePath(GetCondition()+"_mastery", "PostQuestionnaires/PIX");
         
-        CSVManager.SetHeaders(masteryHeaders);
-        CSVManager.AppendToReport(masteryAnswers);
+        CSVManager.SetConditionHeader(masteryHeaders);
+        CSVManager.AppendToReportCondition(masteryAnswers);
         LoadNextPage(nextPage);
     }
 
   
 
-    public void SubmitChallengeAnswer(GameObject nextPage)
+    public void SubmitChallengeAnswer()
     {
 
         for (int i = 0; i < challengeQaArr.Length; i++)
         {
             challengeQaArr[i] = ReadQuestionAndAnswer(challengeQuestionGroupArr[i]);
-            Debug.Log(challengeQaArr[i].Question + " " + challengeQaArr[i].Answer);
-            challengeHeaders[i] = challengeQaArr[i].Question;
+            challengeHeaders[i] = challengeQuestionGroupArr[i].name;
             challengeAnswers[i] = challengeQaArr[i].Answer;
 
         }
-        CSVManager.SetFilePath("postQuestionnaireChallenge", "PostQuestionnaires");
+        CSVManager.SetFilePath(GetCondition()+"_challenge", "PostQuestionnaires/PIX");
 
-        CSVManager.SetHeaders(challengeHeaders);
-        CSVManager.AppendToReport(challengeAnswers);
-        LoadNextPage(nextPage);
-    }
-    public void SubmitSAMAnswer()
-    {
-
-        for (int i = 0; i < samQaArr.Length; i++)
-        {
-            samQaArr[i] = ReadQuestionAndAnswer(samQuestionGroupArr[i]);
-            Debug.Log(samQuestionGroupArr[i].name + " " + samQaArr[i].Answer);
-            samHeaders[i] = samQuestionGroupArr[i].name;
-            samAnswers[i] = samQaArr[i].Answer;
-
-        }
-        CSVManager.SetFilePath("postQuestionnaireSAM", "PostQuestionnaires");
-
-        CSVManager.SetHeaders(samHeaders);
-        CSVManager.AppendToReport(samAnswers);
+        CSVManager.SetConditionHeader(challengeHeaders);
+        CSVManager.AppendToReportCondition(challengeAnswers);
         LoadNextCondition();
-
     }
+    
 
     QAClass07 ReadQuestionAndAnswer(GameObject questionGroup)
     {
@@ -133,7 +189,8 @@ public class PostQuestionnaireManager : MonoBehaviour
             {
                 if (a.transform.GetChild(i).GetComponent<Toggle>().isOn)
                 {
-                    result.Answer = a.transform.GetChild(i).Find("Label").GetComponent<Text>().text;
+                    //result.Answer = a.transform.GetChild(i).Find("Label").GetComponent<Text>().text;
+                    result.Answer = a.transform.GetChild(i).name;
                     break;
                 }
             }
@@ -178,4 +235,45 @@ public class PostQuestionnaireManager : MonoBehaviour
         Debug.Log("QUIT");
         Application.Quit();
     }
+
+    private void Update()
+    {
+
+        CheckValidation(similarityButton, similarityQaArr, similarityQuestionGroupArr);
+       
+        CheckValidation(masteryButton, masteryQaArr, masteryQuestionGroupArr);
+        CheckValidation(challengeButton, challengeQaArr, challengeQuestionGroupArr);
+        CheckValidation(presenceButton, presenceQaArr, presenceQuestionGroupArr);
+        CheckValidation(enjoymentButton, enjoymentQaArr, enjoymentQuestionGroupArr);
+        CheckValidation(identificationButton, identificationQaArr, identificationQuestionGroupArr);
+
+
+    }
+    private string GetCondition()
+    {
+        return FindObjectOfType<GameManager>().GetCondition();
+    }
+    void CheckValidation(Button button, QAClass07[] qaArray, GameObject[] qaGroupArr)
+    {
+        int counter = 0;
+        for (int i = 0; i < qaGroupArr.Length; i++)
+        {
+            qaArray[i] = ReadQuestionAndAnswer(qaGroupArr[i]);
+            if (qaArray[i].Answer != "")
+            {
+                counter++;
+                Debug.Log("counter: " + counter);
+                Debug.Log("array: " + qaArray.Length);
+            }
+            if (counter >= qaArray.Length)
+            {
+                button.interactable = true;
+            }
+            else
+            {
+                button.interactable = false;
+            }
+        }
+    }
 }
+

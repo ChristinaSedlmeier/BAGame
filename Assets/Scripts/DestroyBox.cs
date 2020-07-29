@@ -14,7 +14,6 @@ public class DestroyBox : MonoBehaviour
     private void OnTriggerEnter(Collider collider)
     {
 
-        Debug.Log("in Destory Box");
        
         if (collider.tag == "Hand")
         {
@@ -23,6 +22,7 @@ public class DestroyBox : MonoBehaviour
             hitCounter++;
                 if (hitCounter >= hitsNeeded)
                 {
+                FindObjectOfType<SoundManager>().Play("WoodBreaking");
                     FindObjectOfType<LevelManager>().ActivateHitUI();
                     Instantiate(destroyedVersion, transform.position, transform.rotation);
                     Destroy(gameObject);

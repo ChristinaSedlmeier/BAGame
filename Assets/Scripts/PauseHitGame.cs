@@ -32,7 +32,7 @@ public class PauseHitGame : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown("h"))
+        if(Input.GetMouseButtonDown(0))
         {
             pauseUI.SetActive(false);
             Destroy(gameObject);
@@ -40,7 +40,14 @@ public class PauseHitGame : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        if(FindObjectOfType<GameManager>().GetConditionNum() != 0 )
+        {
+            Destroy(gameObject);
 
+        }
+    }
 
     public void DestroyObject(GameObject pauseTrigger)
     {

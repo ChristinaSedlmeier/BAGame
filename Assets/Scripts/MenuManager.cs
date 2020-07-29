@@ -20,7 +20,12 @@ public class MenuManager : MonoBehaviour
     public GameObject[] filledStars;
 
     public GameObject WASDUI;
+    public GameObject boxCollider;
 
+
+    public GameObject maleSkinny;
+    public GameObject maleMedium;
+    public GameObject maleStong;
 
 
     public void LoadGame()
@@ -38,47 +43,62 @@ public class MenuManager : MonoBehaviour
     private void LoadEasyGame()
     {
         //FindObjectOfType<GameManager>().UpdateDifficulty(false);
-        SceneManager.LoadScene(FindObjectOfType<GameManager>().GetLevel() + FindObjectOfType<GameManager>().GetDifficulty()+ FindObjectOfType<GameManager>().GetCondition());
+        SceneManager.LoadScene(FindObjectOfType<GameManager>().GetLevel() + FindObjectOfType<GameManager>().GetDifficulty());
+
         FindObjectOfType<GameManager>().SetExtraLifes();
     }
 
     private void LoadHardGame()
     {
         //FindObjectOfType<GameManager>().UpdateDifficulty(true);
-        SceneManager.LoadScene("Level" + FindObjectOfType<GameManager>().GetLevel() + FindObjectOfType<GameManager>().GetDifficulty());
+        SceneManager.LoadScene(FindObjectOfType<GameManager>().GetLevel() + FindObjectOfType<GameManager>().GetDifficulty());
  
     }
 
     void Start()
     {
-        
-        Debug.Log("stars: " + FindObjectOfType<GameManager>().GetStars());
-        ScoreText.text = "x "+ FindObjectOfType<GameManager>().GetScore().ToString();
-            //+ "/" + FindObjectOfType<GameManager>().GetPossibleScore().ToString();
-        LevelText.text = "Level " + FindObjectOfType<GameManager>().GetLevel().ToString();
-        if(FindObjectOfType<GameManager>().GetStars() == 1)
+        Cursor.visible = false;
+        ScoreText.text = "x " + FindObjectOfType<GameManager>().GetScore().ToString();
+        LevelText.text = "Level " + FindObjectOfType<GameManager>().GetRound().ToString();
+        if (FindObjectOfType<GameManager>().GetRound() == 1)
         {
-           // emptyStars[0].SetActive(false);
-            //filledStars[0].SetActive(true);
+            FindObjectOfType<GameManager>().ShuffleRounds();
+        }
+        if(FindObjectOfType<GameManager>().GetConditionNum() != 0)
+        {
+            WASDUI.SetActive(false);
+            boxCollider.SetActive(false);
 
         }
-        if (FindObjectOfType<GameManager>().GetStars() == 2)
-        {
-            emptyStars[0].SetActive(false);
-            //filledStars[0].SetActive(true);
-            emptyStars[1].SetActive(false);
-           // filledStars[1].SetActive(true);
 
+        if (FindObjectOfType<GameManager>().GetCondition() == "Skinny")
+        {
+            maleSkinny.SetActive(true);
+            maleMedium.SetActive(false);
+            maleStong.SetActive(false);
         }
-        if (FindObjectOfType<GameManager>().GetStars() == 3)
+        else if (FindObjectOfType<GameManager>().GetCondition() == "Medium")
         {
-            emptyStars[0].SetActive(false);
-           // filledStars[0].SetActive(true);
-            emptyStars[1].SetActive(false);
-           // filledStars[1].SetActive(true);
-            emptyStars[2].SetActive(false);
-           // filledStars[2].SetActive(true);
+            maleSkinny.SetActive(false);
+            maleMedium.SetActive(true);
+            maleStong.SetActive(false);
+        }
+        if (FindObjectOfType<GameManager>().GetCondition() == "Strong")
+        {
+            maleSkinny.SetActive(false);
+            maleMedium.SetActive(false);
+            maleStong.SetActive(true);
+        }
 
+    }
+
+    private void Update()
+    {
+        if (transform.position.y <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
+
+
 }

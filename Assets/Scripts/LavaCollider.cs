@@ -8,6 +8,7 @@ public class LavaCollider : MonoBehaviour
     {
         if(other.tag == "Player")
         {
+            Time.timeScale = 0;
             FindObjectOfType<LevelManager>().GameLost();
         }
     }

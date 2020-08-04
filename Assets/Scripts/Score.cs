@@ -20,7 +20,7 @@ public class Score : MonoBehaviour
 
     public void PlayWin()
     {
-       // FindObjectOfType<SoundManager>().Play("Win");
+        FindObjectOfType<SoundManager>().Play("Win");
         scoreText.text = "You collected " + FindObjectOfType<GameManager>().GetScore().ToString() + " Coins";
     }
 }

@@ -8,7 +8,7 @@ public class ReadUserID : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("in Read UserID");
         //ReadCSVFile();
     }
 
@@ -17,8 +17,9 @@ public class ReadUserID : MonoBehaviour
     {
         Debug.Log(Application.dataPath);
         StreamReader reader = new StreamReader(Application.dataPath + "/UserID/UserID.txt");
-        string id = reader.ReadToEnd();
-        
+        string id = reader.ReadLine();
+        Debug.Log(id +" is ID");
+
         reader.Close();
         return id;
     }

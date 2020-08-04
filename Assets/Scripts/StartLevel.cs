@@ -22,7 +22,7 @@ public class StartLevel : MonoBehaviour
 	private void Start()
 	{
 		
-		levelText.text = "Level "+ FindObjectOfType<GameManager>().GetLevel().ToString() +" "+ FindObjectOfType<GameManager>().GetDifficulty();
+		levelText.text = "Level "+ FindObjectOfType<GameManager>().GetRound().ToString() + " "+ FindObjectOfType<GameManager>().GetDifficulty();
 		startText.text = "START";
 	}
 }

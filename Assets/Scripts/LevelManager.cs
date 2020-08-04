@@ -37,6 +37,8 @@ public class LevelManager : MonoBehaviour
 
     public Transform player;
 
+    bool enabled = true;
+
 
 
     void Start()
@@ -79,6 +81,7 @@ public class LevelManager : MonoBehaviour
         }
         if(levelCompleted == true)
         {
+            lostCoins = 0;
             // completeLevelUI.SetActive(true);
             Debug.Log("Level Completed");
             SaveLevelData(true);
@@ -112,15 +115,13 @@ public class LevelManager : MonoBehaviour
 
     public void GameLost()
     {
-        if (gameManager.GetHardDifficulty() == false)
+        Debug.Log(FindObjectOfType<GameManager>().GetHardDifficulty());
+        if (FindObjectOfType<GameManager>().GetHardDifficulty() == false)
         {
             Time.timeScale = 0;
             Restart();
-        }
-
-        else
-        {
-
+        } else {
+            Time.timeScale = 1;
             levelCompleted = false;
             gameOverUI.SetActive(true);
         }
@@ -189,12 +190,14 @@ public class LevelManager : MonoBehaviour
         return levelScore;
     }
 
+
+
     private void FixedUpdate()
     {
-        if (maleStong.transform.position.y <= 0 || maleMedium.transform.position.y <= 0 || maleSkinny.transform.position.y <= 0)
+        if ((maleStong.transform.position.y <= 0 || maleMedium.transform.position.y <= 0 || maleSkinny.transform.position.y <= 0) && enabled == true)
         {
-            levelCompleted = false;
-            gameOverUI.SetActive(true);
+            GameLost();
+            enabled = false;
         }
     }
 

@@ -50,16 +50,21 @@ public class PlayerControls : MonoBehaviour
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Punching"))
         {
             Debug.Log("is punshing animation");
-            GameObject.FindWithTag("Hand").SetActive(true);
+           // GameObject.FindWithTag("Hand").SetActive(true);
             Hand.SetActive(true);
 
 
         }
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
-            GameObject.FindWithTag("Hand").SetActive(false);
+            //GameObject.FindWithTag("Hand").SetActive(false);
             Hand.SetActive(false);
 
+        }
+
+        if(gameObject.transform.position.y <= 0)
+        {
+            FindObjectOfType<LevelManager>().GameLost();
         }
        
         

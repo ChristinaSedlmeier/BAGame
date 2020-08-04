@@ -7,6 +7,7 @@ public class CSVManager
     private  static string fileName = "report.csv";
     private static string reportSeperator = ",";
     ReadUserID id = new ReadUserID();
+    private static string gender = "female";
     public static string[] headers = new string[6]
     {
         "condition",
@@ -29,10 +30,10 @@ public class CSVManager
         Debug.Log("Report sucessful" + directoryName);
         VerifyDirectory();
         VerifyFile();
-        using(StreamWriter sw = File.AppendText(GetFilePath()))
+        using (StreamWriter sw = File.AppendText(GetFilePath()))
         {
             string finalString = "";
-            finalString += GetUserid();
+            finalString += GetUserid() + reportSeperator + gender;
             for (int i =0; i < strings.Length; i++)
             {
                 if(finalString != "")
@@ -55,7 +56,7 @@ public class CSVManager
         using (StreamWriter sw = File.AppendText(GetFilePath()))
         {
             string finalString = "";
-            finalString += GetUserid()+reportSeperator + GameManager.conditions[GameManager.conditionNum];
+            finalString += GetUserid()+reportSeperator + GameManager.conditions[GameManager.conditionNum] + reportSeperator + gender;
             for (int i = 0; i < strings.Length; i++)
             {
                 if (finalString != "")
@@ -68,14 +69,26 @@ public class CSVManager
             sw.WriteLine(finalString);
         }
     }
+    public static void AppendID(string userID)
+    {
+        VerifyDirectory();
+        using (StreamWriter sw = File.AppendText(GetFilePath()))
+        {
+            string finalString = "";
+            finalString += userID;
+           
+            sw.WriteLine(finalString);
+        }
+    }
+
+
     public static void CreateReport()
     {
-       // VerifyDirectory();
-
+        // VerifyDirectory();
         using (StreamWriter sw = File.CreateText(GetFilePath()))
         {
             string finalString = "";
-            finalString += "ID";
+            finalString += "ID" + reportSeperator + "gender";
             for(int i = 0; i<headers.Length; i++)
             {
                 if(finalString != "")
@@ -94,8 +107,9 @@ public class CSVManager
 
 
         //region Operations
-        static void VerifyFile()
+    static void VerifyFile()
     {
+
         string file = GetFilePath();
         if (!File.Exists(file))
         {
@@ -104,6 +118,7 @@ public class CSVManager
     }
     static void VerifyDirectory()
     {
+
         string dir = GetDirectoryPath();
         if (!Directory.Exists(dir))
         {
@@ -113,10 +128,16 @@ public class CSVManager
 
     public static void SetFilePath(string filePath, string directoryPath)
     {
+      
         fileName = GetUserid() + filePath + ".csv";
         directoryName = ("UserData/") + directoryPath;
 
+    }
 
+    public static void SetIDFilePath(string filePath, string directoryPath)
+    {
+        fileName = filePath + ".txt";
+        directoryName =  directoryPath;
 
     }
     public static void SetHeaders(string[] headerNames)
@@ -159,7 +180,7 @@ public class CSVManager
         return timestamp;
     }
 
-    static string GetUserid()
+    public static string GetUserid()
     {
         return ReadUserID.ReadCSVFile();
     }

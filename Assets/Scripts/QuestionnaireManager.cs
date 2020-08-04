@@ -55,7 +55,7 @@ public class QuestionnaireManager : MonoBehaviour
             demograficAnswers[i] = qaArr[i].Answer;
            
         }
-        CSVManager.SetFilePath(GetCondition() + "_demograficData", "UserData/Demografics");
+        CSVManager.SetFilePath("_demograficData", "UserData/Demografics");
 
         CSVManager.SetHeaders(demograficHeaders);
         CSVManager.AppendToReport(demograficAnswers);
@@ -73,7 +73,7 @@ public class QuestionnaireManager : MonoBehaviour
             bodyEsteemAnswers[i] = bodyEsteemQaArr[i].Answer;
 
         }
-        CSVManager.SetFilePath(GetCondition()+"_bodyEsteemData", "UserData/BodyEsteem");
+        CSVManager.SetFilePath("_bodyEsteemData", "UserData/BodyEsteem");
 
         CSVManager.SetHeaders(bodyEsteemHeaders);
         CSVManager.AppendToReport(bodyEsteemAnswers);
@@ -96,7 +96,7 @@ public class QuestionnaireManager : MonoBehaviour
             {
                 if (a.transform.GetChild(i).GetComponent<Toggle>().isOn)
                 {
-                    result.Answer = a.transform.GetChild(i).Find("Label").GetComponent<Text>().text;
+                    result.Answer = a.transform.GetChild(i).name;
                     break; 
                 }
             }
@@ -187,11 +187,6 @@ public class QuestionnaireManager : MonoBehaviour
 
         }
 
-    }
-
-    private string GetCondition()
-    {
-        return FindObjectOfType<GameManager>().GetCondition();
     }
 }
 [System.Serializable]

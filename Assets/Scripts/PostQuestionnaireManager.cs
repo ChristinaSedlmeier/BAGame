@@ -214,7 +214,7 @@ public class PostQuestionnaireManager : MonoBehaviour
     public void LoadNextCondition()
     {
         FindObjectOfType<GameManager>().UpdateCondition();
-        if (FindObjectOfType<GameManager>().GetConditionNum() > 2)
+        if (FindObjectOfType<GameManager>().GetConditionNum() >= 3)
         {
             QuitCanvas();
         }

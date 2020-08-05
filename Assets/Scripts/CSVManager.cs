@@ -56,7 +56,7 @@ public class CSVManager
         using (StreamWriter sw = File.AppendText(GetFilePath()))
         {
             string finalString = "";
-            finalString += GetUserid()+reportSeperator + GameManager.conditions[GameManager.conditionNum] + reportSeperator + gender;
+            finalString += GetUserid() + reportSeperator + gender + reportSeperator + GameManager.conditions[GameManager.conditionNum] ;
             for (int i = 0; i < strings.Length; i++)
             {
                 if (finalString != "")
@@ -129,7 +129,7 @@ public class CSVManager
     public static void SetFilePath(string filePath, string directoryPath)
     {
       
-        fileName = GetUserid() + filePath + ".csv";
+        fileName = GetUserid() + "_" + filePath + ".csv";
         directoryName = ("UserData/") + directoryPath;
 
     }

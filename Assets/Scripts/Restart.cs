@@ -29,5 +29,6 @@ public class Restart : MonoBehaviour
         }
         FindObjectOfType<SoundManager>().Play("Fail");
         Time.timeScale = 1;
+        FindObjectOfType<GameManager>().DecreaseExtraLifes();
     }
 }

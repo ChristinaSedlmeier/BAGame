@@ -18,8 +18,8 @@ public class QuestionnaireManager : MonoBehaviour
     public GameObject[] bodyEsteemQuestionGroupArr;
     public QAClass07[] bodyEsteemQaArr;
 
-    private static string[] demograficHeaders = new string[9];
-    private static string[] demograficAnswers = new string[9];
+    private static string[] demograficHeaders = new string[8];
+    private static string[] demograficAnswers = new string[8];
     private static string[] bodyEsteemHeaders = new string[10];
     private static string[] bodyEsteemAnswers = new string[10];
 
@@ -55,7 +55,7 @@ public class QuestionnaireManager : MonoBehaviour
             demograficAnswers[i] = qaArr[i].Answer;
            
         }
-        CSVManager.SetFilePath("_demograficData", "UserData/Demografics");
+        CSVManager.SetFilePath("demograficData", "UserData/Demografics");
 
         CSVManager.SetHeaders(demograficHeaders);
         CSVManager.AppendToReport(demograficAnswers);
@@ -73,7 +73,7 @@ public class QuestionnaireManager : MonoBehaviour
             bodyEsteemAnswers[i] = bodyEsteemQaArr[i].Answer;
 
         }
-        CSVManager.SetFilePath("_bodyEsteemData", "UserData/BodyEsteem");
+        CSVManager.SetFilePath("bodyEsteemData", "UserData/BodyEsteem");
 
         CSVManager.SetHeaders(bodyEsteemHeaders);
         CSVManager.AppendToReport(bodyEsteemAnswers);
@@ -130,7 +130,7 @@ public class QuestionnaireManager : MonoBehaviour
         
         int j = 0;
         int k = 0;
-        int length1 = 5;
+        int length1 = 4;
         int length2 = qaArr.Length;
         int length3 = 5;
         int length4 = bodyEsteemQaArr.Length;
@@ -157,7 +157,6 @@ public class QuestionnaireManager : MonoBehaviour
         CheckValidation(length2, 5, qaArr, questionGroupArr, button[1]);
         CheckValidation(length3, k, bodyEsteemQaArr, bodyEsteemQuestionGroupArr, button[2]);
         CheckValidation(length4, 5, bodyEsteemQaArr, bodyEsteemQuestionGroupArr, button[3]);
-
 
 
     }

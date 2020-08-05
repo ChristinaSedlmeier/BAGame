@@ -132,7 +132,7 @@ public class LevelManager : MonoBehaviour
         lostCoins = levelScore;
         levelScore = 0;
         levelCompleted = false;
-        FindObjectOfType<GameManager>().DecreaseExtraLifes();
+
         Debug.Log(FindObjectOfType<GameManager>().GetExtraLifes() + "is extarLifes");
         if (FindObjectOfType<GameManager>().GetExtraLifes() <= 0)
         {
@@ -147,7 +147,8 @@ public class LevelManager : MonoBehaviour
           
         }
 
-        
+
+
     }
 
     public void UpdateScore()

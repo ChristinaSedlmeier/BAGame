@@ -21,6 +21,7 @@ public class MenuManager : MonoBehaviour
 
     public GameObject WASDUI;
     public GameObject boxCollider;
+    public GameObject mirror;
 
 
     public GameObject maleSkinny;
@@ -66,11 +67,19 @@ public class MenuManager : MonoBehaviour
         }
         if(FindObjectOfType<GameManager>().GetConditionNum() != 0)
         {
-            WASDUI.SetActive(false);
-            boxCollider.SetActive(false);
+            Destroy(WASDUI);
+            Destroy(boxCollider);
+            //WASDUI.SetActive(false);
+            //  boxCollider.SetActive(false);
+            mirror.SetActive(true);
+
 
         }
 
+        if(FindObjectOfType<GameManager>().GetRound() > 1)
+        {
+            mirror.SetActive(true);
+        }
         if (FindObjectOfType<GameManager>().GetCondition() == "Skinny")
         {
             maleSkinny.SetActive(true);
@@ -90,14 +99,6 @@ public class MenuManager : MonoBehaviour
             maleStong.SetActive(true);
         }
 
-    }
-
-    private void Update()
-    {
-        if (transform.position.y <= 0)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
     }
 
 

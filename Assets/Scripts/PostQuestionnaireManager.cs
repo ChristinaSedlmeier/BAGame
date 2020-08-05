@@ -12,24 +12,6 @@ public class PostQuestionnaireManager : MonoBehaviour
 
     public GameObject quitUI;
 
-    public GameObject[] enjoymentQuestionGroupArr;
-    public QAClass07[] enjoymentQaArr;
-
-    private static string[] enjoymentHeaders = new string[5];
-    private static string[] enjoymentAnswers = new string[5];
-
-    public GameObject[] masteryQuestionGroupArr;
-    public QAClass07[] masteryQaArr;
-
-    private static string[] masteryHeaders = new string[5];
-    private static string[] masteryAnswers = new string[5];
-
-    public GameObject[] challengeQuestionGroupArr;
-    public QAClass07[] challengeQaArr;
-
-    private static string[] challengeHeaders = new string[4];
-    private static string[] challengeAnswers = new string[4];
-
 
     public GameObject[] similarityQuestionGroupArr;
     public QAClass07[] similarityQaArr;
@@ -49,24 +31,71 @@ public class PostQuestionnaireManager : MonoBehaviour
     private static string[] identificationHeaders = new string[5];
     private static string[] identificationAnswers = new string[5];
 
-    public Button enjoymentButton;
-    public Button masteryButton;
-    public Button challengeButton;
+
+
+
+    public GameObject[] enjoymentQuestionGroupArr;
+    public QAClass07[] enjoymentQaArr;
+
+    private static string[] enjoymentHeaders = new string[7];
+    private static string[] enjoymentAnswers = new string[7];
+
+    public GameObject[] competenceQuestionGroupArr;
+    public QAClass07[] competenceQaArr;
+
+    private static string[] competenceHeaders = new string[6];
+    private static string[] competenceAnswers = new string[6];
+
+    public GameObject[] effortQuestionGroupArr;
+    public QAClass07[] effortQaArr;
+
+    private static string[] effortHeaders = new string[5];
+    private static string[] effortAnswers = new string[5];
+
+    public GameObject[] pressureQuestionGroupArr;
+    public QAClass07[] pressureQaArr;
+
+    private static string[] pressureHeaders = new string[5];
+    private static string[] pressureAnswers = new string[5];
+
+
+
+    public GameObject[] riskQuestionGroupArr;
+    public QAClass07[] riskQaArr;
+
+    private static string[] riskHeaders = new string[3];
+    private static string[] riskAnswers = new string[3];
+
+
     public Button similarityButton;
     public Button presenceButton;
     public Button identificationButton;
+
+    public Button enjoymentButton;
+    public Button competenceButton;
+    public Button effortButton;
+    public Button pressureButton;
+
+    public Button riskButton;
+
 
 
 
     private void Start()
     {
         Cursor.visible = true;
+
         enjoymentQaArr = new QAClass07[enjoymentQuestionGroupArr.Length];
-        masteryQaArr = new QAClass07[masteryQuestionGroupArr.Length];
-        challengeQaArr = new QAClass07[challengeQuestionGroupArr.Length];
+        competenceQaArr = new QAClass07[competenceQuestionGroupArr.Length];
+        effortQaArr = new QAClass07[effortQuestionGroupArr.Length];
+        pressureQaArr = new QAClass07[pressureQuestionGroupArr.Length];
+
         similarityQaArr = new QAClass07[similarityQuestionGroupArr.Length];
         presenceQaArr = new QAClass07[presenceQuestionGroupArr.Length];
         identificationQaArr = new QAClass07[identificationQuestionGroupArr.Length];
+       
+
+        riskQaArr = new QAClass07[riskQuestionGroupArr.Length];
     }
 
     public void SubmitIdentificationAnswer(GameObject nextPage)
@@ -79,7 +108,7 @@ public class PostQuestionnaireManager : MonoBehaviour
             identificationAnswers[i] = identificationQaArr[i].Answer;
 
         }
-        CSVManager.SetFilePath(GetCondition()+"_wishfulIdentification", "PostQuestionnaires/UserIdentification");
+        CSVManager.SetFilePath(GetCondition()+"_wishfulIdentification", "PostQuestionnaires/UserIdentification/WishfulIdentification");
 
         CSVManager.SetConditionHeader(identificationHeaders);
         CSVManager.AppendToReportCondition(identificationAnswers);
@@ -98,7 +127,7 @@ public class PostQuestionnaireManager : MonoBehaviour
             presenceAnswers[i] = presenceQaArr[i].Answer;
 
         }
-        CSVManager.SetFilePath(GetCondition()+"_embodiedPresence", "PostQuestionnaires/UserIdentification");
+        CSVManager.SetFilePath(GetCondition()+"_embodiedPresence", "PostQuestionnaires/UserIdentification/EmbodiedPresence");
 
         CSVManager.SetConditionHeader(presenceHeaders);
         CSVManager.AppendToReportCondition(presenceAnswers);
@@ -114,7 +143,7 @@ public class PostQuestionnaireManager : MonoBehaviour
             similarityAnswers[i] = similarityQaArr[i].Answer;
 
         }
-        CSVManager.SetFilePath(GetCondition()+"_similarityIdentification", "PostQuestionnaires/UserIdentification");
+        CSVManager.SetFilePath(GetCondition()+"_similarityIdentification", "PostQuestionnaires/UserIdentification/SimilarityIdentification");
 
         CSVManager.SetConditionHeader(similarityHeaders);
         CSVManager.AppendToReportCondition(similarityAnswers);
@@ -131,48 +160,82 @@ public class PostQuestionnaireManager : MonoBehaviour
             enjoymentAnswers[i] = enjoymentQaArr[i].Answer;
 
         }
-        CSVManager.SetFilePath(GetCondition()+"_enjoyment", "PostQuestionnaires/PIX");
+        CSVManager.SetFilePath(GetCondition()+"_enjoyment", "PostQuestionnaires/IMI/Enjoyment");
 
         CSVManager.SetConditionHeader(enjoymentHeaders);
         CSVManager.AppendToReportCondition(enjoymentAnswers);
         LoadNextPage(nextPage);
     }
-    public void SubmitMasteryAnswer(GameObject nextPage)
+    public void SubmitCompetenceAnswer(GameObject nextPage)
     {
 
-        for (int i = 0; i < masteryQaArr.Length; i++)
+        for (int i = 0; i < competenceQaArr.Length; i++)
         {
-            masteryQaArr[i] = ReadQuestionAndAnswer(masteryQuestionGroupArr[i]);
-            masteryHeaders[i] = masteryQuestionGroupArr[i].name;
-            masteryAnswers[i] = masteryQaArr[i].Answer;
+            competenceQaArr[i] = ReadQuestionAndAnswer(competenceQuestionGroupArr[i]);
+            competenceHeaders[i] = competenceQuestionGroupArr[i].name;
+            competenceAnswers[i] = competenceQaArr[i].Answer;
 
         }
-        CSVManager.SetFilePath(GetCondition()+"_mastery", "PostQuestionnaires/PIX");
+        CSVManager.SetFilePath(GetCondition()+ "_competence", "PostQuestionnaires/IMI/Competence");
         
-        CSVManager.SetConditionHeader(masteryHeaders);
-        CSVManager.AppendToReportCondition(masteryAnswers);
+        CSVManager.SetConditionHeader(competenceHeaders);
+        CSVManager.AppendToReportCondition(competenceAnswers);
         LoadNextPage(nextPage);
     }
 
   
 
-    public void SubmitChallengeAnswer()
+    public void SubmitEffortAnswer(GameObject nextPage)
     {
 
-        for (int i = 0; i < challengeQaArr.Length; i++)
+        for (int i = 0; i < effortQaArr.Length; i++)
         {
-            challengeQaArr[i] = ReadQuestionAndAnswer(challengeQuestionGroupArr[i]);
-            challengeHeaders[i] = challengeQuestionGroupArr[i].name;
-            challengeAnswers[i] = challengeQaArr[i].Answer;
+            effortQaArr[i] = ReadQuestionAndAnswer(effortQuestionGroupArr[i]);
+            effortHeaders[i] = effortQuestionGroupArr[i].name;
+            effortAnswers[i] = effortQaArr[i].Answer;
 
         }
-        CSVManager.SetFilePath(GetCondition()+"_challenge", "PostQuestionnaires/PIX");
+        CSVManager.SetFilePath(GetCondition()+ "_effort", "PostQuestionnaires/IMI/Effort");
 
-        CSVManager.SetConditionHeader(challengeHeaders);
-        CSVManager.AppendToReportCondition(challengeAnswers);
+        CSVManager.SetConditionHeader(effortHeaders);
+        CSVManager.AppendToReportCondition(effortAnswers);
+        LoadNextPage(nextPage);
+    }
+
+    public void SubmitPressureAnswer()
+    {
+
+        for (int i = 0; i < pressureQaArr.Length; i++)
+        {
+            pressureQaArr[i] = ReadQuestionAndAnswer(pressureQuestionGroupArr[i]);
+            pressureHeaders[i] = pressureQuestionGroupArr[i].name;
+            pressureAnswers[i] = pressureQaArr[i].Answer;
+
+        }
+        CSVManager.SetFilePath(GetCondition() + "_pressure", "PostQuestionnaires/IMI/Pressure");
+
+        CSVManager.SetConditionHeader(pressureHeaders);
+        CSVManager.AppendToReportCondition(pressureAnswers);
         LoadNextCondition();
     }
-    
+
+    public void SubmitRiskAnswer(GameObject nextPage)
+    {
+
+        for (int i = 0; i < riskQaArr.Length; i++)
+        {
+            riskQaArr[i] = ReadQuestionAndAnswer(riskQuestionGroupArr[i]);
+            riskHeaders[i] = riskQuestionGroupArr[i].name;
+            riskAnswers[i] = riskQaArr[i].Answer;
+
+        }
+        CSVManager.SetFilePath(GetCondition() + "_risk", "PostQuestionnaires/RPS/Risk");
+
+        CSVManager.SetConditionHeader(riskHeaders);
+        CSVManager.AppendToReportCondition(riskAnswers);
+        LoadNextPage(nextPage);
+    }
+
 
     QAClass07 ReadQuestionAndAnswer(GameObject questionGroup)
     {
@@ -241,11 +304,14 @@ public class PostQuestionnaireManager : MonoBehaviour
 
         CheckValidation(similarityButton, similarityQaArr, similarityQuestionGroupArr);
        
-        CheckValidation(masteryButton, masteryQaArr, masteryQuestionGroupArr);
-        CheckValidation(challengeButton, challengeQaArr, challengeQuestionGroupArr);
+        CheckValidation(competenceButton, competenceQaArr, competenceQuestionGroupArr);
+        CheckValidation(effortButton, effortQaArr, effortQuestionGroupArr);
         CheckValidation(presenceButton, presenceQaArr, presenceQuestionGroupArr);
+        CheckValidation(pressureButton, pressureQaArr, pressureQuestionGroupArr);
         CheckValidation(enjoymentButton, enjoymentQaArr, enjoymentQuestionGroupArr);
         CheckValidation(identificationButton, identificationQaArr, identificationQuestionGroupArr);
+
+        CheckValidation(riskButton, riskQaArr, riskQuestionGroupArr);
 
 
     }

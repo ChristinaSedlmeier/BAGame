@@ -6,6 +6,7 @@ public class IDManager : MonoBehaviour
 
     public InputField id;
     public Button button;
+    public Toggle toggle;
 
 
     private void Start()
@@ -15,9 +16,12 @@ public class IDManager : MonoBehaviour
     void Update()
     {
         id.characterValidation = InputField.CharacterValidation.Integer;
-        if(id.text != "")
+        if(id.text != "" && (toggle.isOn == true))
         {
             button.interactable = true;
+        } else
+        {
+            button.interactable = false; 
         }
     }
 

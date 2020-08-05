@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     static public int conditionNum = 0;
     static public int score = 0;
     static public int stars = 0;
-    static public int extraLifes = 3;
+    static public int extraLifes = 2;
     static public string side;
     private static string[] headers = new string[8]
   {
@@ -152,11 +152,6 @@ public class GameManager : MonoBehaviour
         return (roundCounter-1) * 25;
     }
 
-    public double GetScoreStars()
-    {
-        Debug.Log(score);
-        return score * 0.01;
-    }
 
     public void LoadMenu()
     {
@@ -202,7 +197,13 @@ public class GameManager : MonoBehaviour
 
     public string GetCondition()
     {
-        return conditions[conditionNum];
+        if (conditions[0] != null)
+        {
+            Debug.Log("EmptyCOndition");
+            return conditions[conditionNum];
+        }
+        else return condition6[conditionNum];
+        
     }
 
     public int GetConditionNum()
@@ -238,7 +239,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            extraLifes = 3;
+            extraLifes = 2;
         }
         
     }

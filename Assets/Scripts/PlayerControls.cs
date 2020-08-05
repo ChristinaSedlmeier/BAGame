@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
@@ -62,9 +61,10 @@ public class PlayerControls : MonoBehaviour
 
         }
 
-        if(gameObject.transform.position.y <= 0)
+        if(gameObject.transform.position.y <= -20)
         {
-            FindObjectOfType<LevelManager>().GameLost();
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
        
         
